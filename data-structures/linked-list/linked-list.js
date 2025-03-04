@@ -1,11 +1,11 @@
-class Node {
+class SinglyLinkedListNode {
   constructor(value) {
     this.data = value;
     this.next = null;
   }
 }
 
-class LinkedList {
+class SinglyLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
@@ -74,7 +74,7 @@ class LinkedList {
   }
 
   unshiftNode(nodeValue) {
-    const newNode = new Node(nodeValue);
+    const newNode = new SinglyLinkedListNode(nodeValue);
     if (this.isEmpty()) {
       this.head = newNode;
       this.tail = newNode;
@@ -86,7 +86,7 @@ class LinkedList {
   }
 
   pushNode(nodeValue) {
-    const newNode = new Node(nodeValue);
+    const newNode = new SinglyLinkedListNode(nodeValue);
     if (this.isEmpty()) {
       this.head = newNode;
       this.tail = newNode;
@@ -136,7 +136,7 @@ class LinkedList {
       return;
     }
 
-    const newNode = new Node(value);
+    const newNode = new SinglyLinkedListNode(value);
 
     // Insert at the beginning
     if (position === 1) {
@@ -328,53 +328,48 @@ class LinkedList {
   }
 
   removeDuplicates() {
-    const set = new Set();
+    const visited = new Set();
     let current = this.head;
-    set.add(this.head.data);
+    visited.add(this.head.data);
 
     while (current.next) {
-      if (set.has(current.next.data)) {
+      if (visited.has(current.next.data)) {
         current.next = current.next.next;
         this.length -= 1;
       } else {
         current = current.next;
-        set.add(current.data);
+        visited.add(current.data);
       }
     }
     this.tail = current;
   }
 }
 
-const list = new LinkedList();
-list.pushNode(1);
-list.pushNode(11);
-list.pushNode(2);
-list.pushNode(12);
-list.pushNode(12);
-list.pushNode(22);
-list.pushNode(24);
+module.exports = { SinglyLinkedListNode, SinglyLinkedList };
 
-list.unshiftNode(3);
-
-console.log(list.shiftNode());
-console.log(list.popNode());
-
-list.insertNode(1, 10);
-list.insertNode(2, 30);
-list.insertNode(4, 40);
-list.insertNode(4, 40);
-
-console.log(list.removeNode(4));
-
-console.log(list.removeNodeByValue(2));
-
-list.insertNode(1, 3);
-list.insertNode(2, 5);
-list.insertNode(4, 19);
-list.insertNode(4, 7);
-
-list.setNodeValue(3, 3000);
-
-list.printList();
-list.removeDuplicates();
-list.printList();
+// Test Cases
+// const list = new SinglyLinkedList();
+// list.pushNode(1);
+// list.pushNode(11);
+// list.pushNode(2);
+// list.pushNode(12);
+// list.pushNode(12);
+// list.pushNode(22);
+// list.pushNode(24);
+// list.unshiftNode(3);
+// console.log(list.shiftNode());
+// console.log(list.popNode());
+// list.insertNode(1, 10);
+// list.insertNode(2, 30);
+// list.insertNode(4, 40);
+// list.insertNode(4, 40);
+// console.log(list.removeNode(4));
+// console.log(list.removeNodeByValue(2));
+// list.insertNode(1, 3);
+// list.insertNode(2, 5);
+// list.insertNode(4, 19);
+// list.insertNode(4, 7);
+// list.setNodeValue(3, 3000);
+// list.printList();
+// list.removeDuplicates();
+// list.printList();
