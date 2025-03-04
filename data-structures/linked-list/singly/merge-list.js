@@ -1,4 +1,7 @@
-const { SinglyLinkedList, SinglyLinkedListNode } = require('./linked-list');
+const {
+  SinglyLinkedList,
+  SinglyLinkedListNode,
+} = require('./singly-linked-list');
 
 // Merge two sorted linked lists (h1 and h2) in-place.
 const mergeTwoListInOne = (h1, h2) => {

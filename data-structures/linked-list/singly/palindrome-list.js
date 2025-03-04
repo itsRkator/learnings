@@ -1,4 +1,4 @@
-const { SinglyLinkedList } = require('./linked-list');
+const { SinglyLinkedList } = require('./singly-linked-list');
 
 const isLinkedListPalindrome = (head) => {
   if (!head || !head.next) return true; // Empty or single-node list is always a palindrome.

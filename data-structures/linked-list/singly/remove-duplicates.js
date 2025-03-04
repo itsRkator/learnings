@@ -1,4 +1,4 @@
-const { SinglyLinkedList } = require('./linked-list');
+const { SinglyLinkedList } = require('./singly-linked-list');
 
 // Function to remove duplicates from a sorted linked list
 const removeDuplicatesFromSortedLinkedList = (head) => {

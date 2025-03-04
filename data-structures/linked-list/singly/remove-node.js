@@ -1,4 +1,4 @@
-const { SinglyLinkedList } = require('./linked-list');
+const { SinglyLinkedList } = require('./singly-linked-list');
 
 const removeNodeByValue = (head, value) => {
   if (!head) {

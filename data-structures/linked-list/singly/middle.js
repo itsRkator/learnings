@@ -1,5 +1,5 @@
 // Import the SinglyLinkedList class from the correct file
-const { SinglyLinkedList } = require('./linked-list');
+const { SinglyLinkedList } = require('./singly-linked-list');
 
 /**
  * Function to find the middle node of a singly linked list.
