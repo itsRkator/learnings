@@ -137,9 +137,9 @@ class SinglyLinkedList {
       return null;
     }
 
+    const node = this.tail;
     // Handle special case when there's only one node
     if (this.length === 1) {
-      const node = this.head;
       this.head = null;
       this.tail = null;
       this.length -= 1;
@@ -147,7 +147,6 @@ class SinglyLinkedList {
     }
 
     // For lists with more than one node
-    const node = this.tail;
     let temp = this.head;
 
     // Traverse to find the second-to-last node (optimized to stop at second-to-last node)
@@ -160,6 +159,7 @@ class SinglyLinkedList {
     this.length -= 1;
 
     node.next = null; // Avoid memory leak in large lists
+
     return node;
   }
 
@@ -198,7 +198,7 @@ class SinglyLinkedList {
   removeNode(position) {
     if (position < 1 || position > this.length) {
       console.log('Invalid position');
-      return;
+      return null;
     }
     if (this.isEmpty()) {
       console.log('List is empty');
@@ -278,7 +278,7 @@ class SinglyLinkedList {
     return -1;
   }
 
-  setNodeValue(index, value) {
+  changeNodeValue(index, value) {
     if (this.isEmpty() || index >= this.length || index < 0) {
       return false;
     }
@@ -290,7 +290,7 @@ class SinglyLinkedList {
     return true;
   }
 
-  findByIndex(index) {
+  findNodeByIndex(index) {
     if (this.isEmpty() || index >= this.length || index < 0) {
       return null;
     }
@@ -447,17 +447,17 @@ module.exports = { SinglyLinkedListNode, SinglyLinkedList };
 // console.log('15. Get Index of 20: ', list.getIndex(20)); // Expected: 0
 // console.log('16. Get Index of 100: ', list.getIndex(100)); // Expected: -1
 
-// 13. Test setNodeValue() method
+// 13. Test changeNodeValue() method
 // console.log(
 //   '17. Set node value at index 0 to 100: ',
-//   list.setNodeValue(0, 100)
+//   list.changeNodeValue(0, 100)
 // ); // Expected: true
-// console.log('18. List after setNodeValue(0, 100):');
+// console.log('18. List after changeNodeValue(0, 100):');
 // list.printList(); // Expected: 100
 
-// 14. Test findByIndex() method
-// console.log('19. Find node by index 0: ', list.findByIndex(0).data); // Expected: 100
-// console.log('20. Find node by index 1: ', list.findByIndex(1)); // Expected: null (invalid index)
+// 14. Test findNodeByIndex() method
+// console.log('19. Find node by index 0: ', list.findNodeByIndex(0).data); // Expected: 100
+// console.log('20. Find node by index 1: ', list.findNodeByIndex(1)); // Expected: null (invalid index)
 
 // 15. Test find() method
 // console.log('21. Find node by value 100: ', list.find(100).data); // Expected: 100
