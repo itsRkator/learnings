@@ -93,6 +93,7 @@ class SinglyLinkedList {
       let node = this.head;
       this.head = null;
       this.tail = null;
+      node.next = null;
       this.length -= 1;
       return node;
     }
