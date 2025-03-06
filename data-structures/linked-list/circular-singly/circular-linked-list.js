@@ -146,7 +146,7 @@ class CircularSinglyLinkedList {
       return node;
     }
 
-    let node = this.tail;
+    const node = this.tail;
     let temp = this.head;
     while (temp.next !== this.tail) {
       temp = temp.next;
@@ -330,10 +330,6 @@ class CircularSinglyLinkedList {
 
   reverse() {
     if (this.isEmpty() || this.length === 1) {
-      return;
-    }
-
-    if (this.length === 1) {
       return;
     }
 
