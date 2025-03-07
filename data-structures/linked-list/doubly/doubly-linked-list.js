@@ -67,6 +67,15 @@ class DoublyLinkedList {
     }
   }
 
+  // Reverse traverse the list and log the data of each node
+  reverseTraverse() {
+    let current = this.tail;
+    while (current) {
+      console.log(current.data);
+      current = current.prev;
+    }
+  }
+
   // Print the list as a string (e.g., 1 -> 2 -> 3)
   printList() {
     if (this.isEmpty()) {
@@ -81,7 +90,7 @@ class DoublyLinkedList {
     while (current) {
       listString += current.data;
       if (current.next) {
-        listString += ' -> '; // Add separator between nodes
+        listString += ' <--> '; // Add separator between nodes
       }
       current = current.next;
     }
