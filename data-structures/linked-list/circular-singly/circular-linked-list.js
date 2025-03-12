@@ -89,7 +89,7 @@ class CircularSinglyLinkedList {
       return null;
     }
 
-    let node = this.head;
+    const node = this.head;
     if (this.getLength() === 1) {
       this.head = null;
       this.tail = null;
