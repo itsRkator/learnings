@@ -233,11 +233,11 @@ class CircularSinglyLinkedList {
 
     let temp = this.head;
 
-    while (temp.next && temp.next.data !== value) {
+    do {
       temp = temp.next;
-    }
+    } while (temp !== this.head && temp.next.data !== value);
 
-    if (temp.next) {
+    if (temp.next.data === value) {
       const removedNode = temp.next;
       temp.next = temp.next.next;
 
@@ -268,9 +268,13 @@ class CircularSinglyLinkedList {
     return -1;
   }
 
-  setNodeValue(index, value) {
-    if (this.isEmpty() || index >= this.length || index < 0) {
+  changeNodeValue(index, value) {
+    if (index >= this.length || index < 0) {
       console.log('Invalid index');
+      return false;
+    }
+    if (this.isEmpty()) {
+      console.log('List is empty');
       return false;
     }
 
@@ -463,11 +467,11 @@ module.exports = { CircularSinglyLinkedListNode, CircularSinglyLinkedList };
 
 // Test Case 5: Set and Get Node Value
 // Set Node Value at Index
-// list.setNodeValue(0, 35);
+// list.changeNodeValue(0, 35);
 // console.log(list.findByIndex(0).data); // 35
 
 // Set Node Value at Invalid Index
-// console.log(list.setNodeValue(1, 40)); // true
+// console.log(list.changeNodeValue(1, 40)); // true
 
 // Test Case 6: List Traversal
 // Print List
@@ -541,8 +545,32 @@ module.exports = { CircularSinglyLinkedListNode, CircularSinglyLinkedList };
 // emptyListForRemove.popNode(); // Cannot pop from an empty list
 // emptyListForRemove.removeNode(1); // Invalid position
 
-// console.log('----->');
-// list.printList();
 // Test Case 12: Invalid Node Insertion
 // list.insertNode(10, 99); // Invalid position
-// list.setNodeValue(10, 99); // Invalid index
+// list.changeNodeValue(10, 99); // Invalid index
+
+const list = new CircularSinglyLinkedList();
+
+list.pushNode(1);
+list.pushNode(1);
+list.pushNode(1);
+list.pushNode(1);
+list.pushNode(2);
+list.pushNode(2);
+list.pushNode(2);
+list.pushNode(2);
+list.pushNode(3);
+list.pushNode(3);
+list.pushNode(3);
+list.pushNode(4);
+list.pushNode(4);
+list.pushNode(4);
+list.pushNode(4);
+list.pushNode(4);
+
+list.printList();
+list.removeDuplicates();
+
+list.printList();
+console.log('Head: ', list.head);
+console.log('Tail: ', list.tail);
