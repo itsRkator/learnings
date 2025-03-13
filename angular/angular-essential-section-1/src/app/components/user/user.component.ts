@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { type User } from './user.model';
-import { CardComponent } from "../shared/card/card.component";
+import { CardComponent } from '../shared/card/card.component';
 
 @Component({
   selector: 'app-user',
@@ -15,7 +15,7 @@ export class UserComponent {
 
   // Input from Parent
   @Input({ required: true }) user!: User;
-  @Input({required: true}) selected!: boolean;
+  @Input({ required: true }) selected!: boolean;
 
   // Output to Parent
   @Output() select = new EventEmitter<string>();
