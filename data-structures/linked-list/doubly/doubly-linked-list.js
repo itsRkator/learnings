@@ -285,8 +285,11 @@ class DoublyLinkedList {
 
     if (current.next) {
       const removedNode = current.next;
+
       current.next = removedNode.next;
-      removedNode.next.prev = current;
+      if (removedNode.next) {
+        removedNode.next.prev = current;
+      }
 
       this.length -= 1;
       removedNode.next = null;
