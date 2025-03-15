@@ -219,7 +219,7 @@ class DoublyLinkedList {
 
     node.next = current.next;
     node.prev = current;
-    current.next.prev = node; // node.next.prev = node;
+    current.next.prev = node;
     current.next = node;
 
     this.length += 1;
@@ -362,18 +362,25 @@ class DoublyLinkedList {
   delete() {
     if (this.isEmpty()) {
       console.log('List is already empty. Nothing to delete.');
-    } else {
-      let current = this.head;
-      this.head = null;
-      this.tail = null;
-      this.length = 0;
-      while (current) {
-        current.prev = null;
-        current = current.next;
-      }
-
-      console.log('List has been cleared.');
+      return;
     }
+
+    let current = this.head;
+
+    // Traverse through the list and remove references
+    while (current) {
+      let nextNode = current.next; // Save reference to next node
+      current.prev = null;
+      current.next = null;
+      current = nextNode; // Move to next node
+    }
+
+    // Reset list properties
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+
+    console.log('List has been cleared.');
   }
 
   reverse() {
@@ -453,6 +460,8 @@ class DoublyLinkedList {
     }
   }
 }
+
+module.exports = { DoublyLinkedListNode, DoublyLinkedList };
 
 // Test Cases for Doubly Linked List
 
