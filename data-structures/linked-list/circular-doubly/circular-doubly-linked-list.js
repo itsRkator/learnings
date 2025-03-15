@@ -369,6 +369,8 @@ class CircularDoublyLinkedList {
       console.log('List is already empty. Nothing to delete.');
     } else {
       let current = this.head;
+
+      // Traverse and break all links
       do {
         const nextNode = current.next;
         current.prev = null;
@@ -376,6 +378,7 @@ class CircularDoublyLinkedList {
         current = nextNode;
       } while (current !== this.head);
 
+      // Reset the list's head, tail, and length
       this.head = null;
       this.tail = null;
       this.length = 0;
