@@ -1,12 +1,12 @@
 class Stack {
   #list = []; // Private field
-  #limit = 0;
+  #capacity = 0;
 
-  constructor(size) {
-    if (size <= 0 || !Number.isInteger(size)) {
-      throw new Error('Stack size must be a positive integer.');
+  constructor(capacity) {
+    if (!Number.isInteger(capacity) || capacity <= 0) {
+      throw new Error('Stack capacity must be a positive integer greater than zero.');
     }
-    this.#limit = size;
+    this.#capacity = capacity;
   }
 
   printStack() {
@@ -22,7 +22,7 @@ class Stack {
   }
 
   isFull() {
-    return this.#list.length >= this.#limit;
+    return this.#list.length >= this.#capacity;
   }
 
   currentSize() {
@@ -30,7 +30,7 @@ class Stack {
   }
 
   capacity() {
-    return this.#limit;
+    return this.#capacity;
   }
 
   push(value) {
@@ -58,21 +58,26 @@ class Stack {
   }
 
   delete(resetCapacity = false) {
+    if (this.isEmpty()) {
+      console.log('Cannot delete an empty queue.');
+      return null;
+    }
+
     this.#list = [];
-    if (resetCapacity) this.#limit = 0;
+    if (resetCapacity) this.#capacity = 0;
   }
 }
 
 // Test Cases for Stack Class
 
-// 1. Test Stack Initialization with 0 size
+// 0-a. Test Stack Initialization with 0 size
 // try {
 //   new Stack(0); // Should throw an error
 // } catch (error) {
 //   console.log(error.message); // Expected: "Stack size must be a positive integer."
 // }
 
-// 1. Test Stack Initialization with negative size
+// 0-b. Test Stack Initialization with negative size
 // try {
 //   new Stack(-5); // Should throw an error
 // } catch (error) {
