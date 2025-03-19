@@ -74,6 +74,25 @@ class Queue {
     return dequeuedValue;
   }
 
+  findMinimum() {
+    if (this.isEmpty()) {
+      console.log('Cannot get Minimum from an empty queue.');
+      return null;
+    }
+
+    let current = this.#queue.front;
+    let minimumNode = current;
+
+    while (current) {
+      if (minimumNode.data > current.data) {
+        minimumNode = current;
+      }
+      current = current.next;
+    }
+
+    return minimumNode;
+  }
+
   peek() {
     if (this.isEmpty()) {
       console.log('Cannot peek from an empty queue.');
