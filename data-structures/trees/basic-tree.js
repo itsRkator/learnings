@@ -11,16 +11,16 @@ class TreeNode {
   }
 
   // Method to print the tree structure, showing the hierarchy with indentation
-  printTree(level = 0) {
+  printTree(currentLevel = 0) {
     let tabSpaces = ''; // String to accumulate indentation for the current level
-    for (let l = 0; l < level; l++) {
+    for (let l = 0; l < currentLevel; l++) {
       tabSpaces += '\t'; // Adds a tab space for each level of depth
     }
     console.log(tabSpaces + this.data); // Print the current node's data (name)
 
     // Recursively print each child node, increasing the level (depth) by 1
     this.children.forEach((child) => {
-      child.printTree(level + 1); // Call printTree on the child node, increasing the indentation
+      child.printTree(currentLevel + 1); // Call printTree on the child node, increasing the indentation
     });
   }
 }
@@ -45,7 +45,6 @@ class TreeNode {
 // Tea
 // const blackTea = new TreeNode('Black Tea'); // Type of tea
 // const greenTea = new TreeNode('Green Tea'); // Type of tea
-
 // Coffee
 // const espresso = new TreeNode('Espresso'); // Type of coffee
 // const latte = new TreeNode('Latte'); // Type of coffee
