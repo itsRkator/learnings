@@ -1,0 +1,16 @@
+{
+  "name": "05-next-gen-ts-and",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server"
+  },
+  "keywords": [],
+  "author": "Rohitash Kator",
+  "license": "ISC",
+  "description": "Understanding TypeScript and JavaScript next Gen Features",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
