@@ -5,7 +5,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-let userGoal = 'Become an advanced Full Stack Developer. Learning Docker!';
+let userGoal = 'To become an advanced Full Stack Developer!!';
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
             </head>
             <body>
                 <section>
-                    <h2>My Future Goals!</h2>
+                    <h2>My Future Goals!!</h2>
                     <h3>${userGoal}</h3>
                 </section>
                 <form action="/store-goal" method="POST">
