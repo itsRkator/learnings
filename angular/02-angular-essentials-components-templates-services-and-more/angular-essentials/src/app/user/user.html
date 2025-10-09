@@ -1,0 +1,12 @@
+<div>
+  <button>
+    <!-- Sting Interpolation -->
+    <!-- <img src="assets/users/{{ selectedUser.avatar }}" [alt]="selectedUser.name" /> -->
+
+    <!-- Property binding -->
+    <img [src]="'assets/users/' + selectedUser.avatar" [alt]="selectedUser.name" />
+
+    <!-- Sting Interpolation -->
+    <span>{{ selectedUser.name }}</span>
+  </button>
+</div>
