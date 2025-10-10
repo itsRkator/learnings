@@ -1,5 +1,17 @@
 import { Component, computed, EventEmitter, input, Input, output, Output } from '@angular/core';
 
+type UserType = {
+  id: string;
+  name: string;
+  avatar: string;
+};
+
+// interface UserType {
+//   id: string;
+//   name: string;
+//   avatar: string;
+// }
+
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -9,7 +21,7 @@ import { Component, computed, EventEmitter, input, Input, output, Output } from 
 })
 export class User {
   // Accepting inputs using Decorators
-  @Input({ required: true }) user!: {id: string, name: string; avatar :string}
+  @Input({ required: true }) user!: UserType;
   @Output() select = new EventEmitter<string>();
 
   get imagePath() {
