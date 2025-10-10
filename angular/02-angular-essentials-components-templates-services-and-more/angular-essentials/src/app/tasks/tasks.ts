@@ -8,7 +8,7 @@ import { Task } from './task/task';
   styleUrl: './tasks.css',
 })
 export class Tasks {
-  @Input({required: true}) userId!: string;
+  @Input({ required: true }) userId!: string;
   @Input() name: string | undefined;
   tasks = [
     {
@@ -34,7 +34,7 @@ export class Tasks {
     },
   ];
 
-  get selectedUserTasks (){
-    return this.tasks.filter(task => task.userId === this.userId)
+  get selectedUserTasks() {
+    return this.tasks.filter((task) => task.userId === this.userId);
   }
 }

@@ -1,16 +1,5 @@
 import { Component, computed, EventEmitter, input, Input, output, Output } from '@angular/core';
-
-type UserType = {
-  id: string;
-  name: string;
-  avatar: string;
-};
-
-// interface UserType {
-//   id: string;
-//   name: string;
-//   avatar: string;
-// }
+import { type User as UserType } from './user.model';
 
 @Component({
   selector: 'app-user',
@@ -22,6 +11,7 @@ type UserType = {
 export class User {
   // Accepting inputs using Decorators
   @Input({ required: true }) user!: UserType;
+  @Input({ required: true }) selected!: boolean;
   @Output() select = new EventEmitter<string>();
 
   get imagePath() {
