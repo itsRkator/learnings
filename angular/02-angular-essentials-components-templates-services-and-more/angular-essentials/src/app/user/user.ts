@@ -9,13 +9,11 @@ import { Component, computed, EventEmitter, input, Input, output, Output } from 
 })
 export class User {
   // Accepting inputs using Decorators
-  @Input({ required: true }) id!: string;
-  @Input({ required: true }) avatar!: string;
-  @Input({ required: true }) name!: string;
+  @Input({ required: true }) user!: {id: string, name: string; avatar :string}
   @Output() select = new EventEmitter<string>();
 
   get imagePath() {
-    return 'assets/users/' + this.avatar;
+    return 'assets/users/' + this.user.avatar;
   }
 
   // Accepting inputs using Signals (Input signals are readonly)
@@ -28,6 +26,6 @@ export class User {
 
   onSelectUser() {
     // Accepting inputs using Decorators
-    this.select.emit(this.id);
+    this.select.emit(this.user.id);
   }
 }

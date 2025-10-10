@@ -1,9 +1,9 @@
 <div>
   <button (click)="onSelectUser()">
     <!-- Property binding -->
-    <img [src]="imagePath" [alt]="name" />
+    <img [src]="imagePath" [alt]="user.name" />
 
     <!-- Sting Interpolation -->
-    <span>{{ name }}</span>
+    <span>{{ user.name }}</span>
   </button>
 </div>
