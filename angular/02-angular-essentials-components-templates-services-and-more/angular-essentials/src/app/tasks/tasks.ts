@@ -1,15 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { Task } from './task/task';
+import { NewTask } from './new-task/new-task';
 
 @Component({
   selector: 'app-tasks',
-  imports: [Task],
+  imports: [Task, NewTask],
   templateUrl: './tasks.html',
   styleUrl: './tasks.css',
 })
 export class Tasks {
   @Input({ required: true }) userId!: string;
   @Input() name: string | undefined;
+  isAddingTask: boolean = false;
   tasks = [
     {
       id: 't1',
@@ -36,5 +38,21 @@ export class Tasks {
 
   get selectedUserTasks() {
     return this.tasks.filter((task) => task.userId === this.userId);
+  }
+
+  onCompleteTask(id: string) {
+    this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
+
+  onStartAddTask() {
+    this.isAddingTask = true;
+  }
+
+  onCancelAddTask() {
+    this.isAddingTask = false;
+  }
+
+  onAddTask(task: { title: string; summary: string; dueDate: string }) {
+    console.log(`User with user id ${this.userId} added new task. Task ${task}`);
   }
 }
