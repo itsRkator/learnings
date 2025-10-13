@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Task } from './task/task';
 import { NewTask } from './new-task/new-task';
+import { type NewTaskData } from './task/task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -52,7 +53,14 @@ export class Tasks {
     this.isAddingTask = false;
   }
 
-  onAddTask(task: { title: string; summary: string; dueDate: string }) {
-    console.log(`User with user id ${this.userId} added new task. Task ${JSON.stringify(task)}`);
+  onAddTask(taskData: NewTaskData) {
+    this.tasks.push({
+      userId: this.userId,
+      id: new Date().getTime().toString(),
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.date,
+    });
+    this.isAddingTask = false;
   }
 }
