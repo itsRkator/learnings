@@ -53,6 +53,6 @@ export class Tasks {
   }
 
   onAddTask(task: { title: string; summary: string; dueDate: string }) {
-    console.log(`User with user id ${this.userId} added new task. Task ${task}`);
+    console.log(`User with user id ${this.userId} added new task. Task ${JSON.stringify(task)}`);
   }
 }
