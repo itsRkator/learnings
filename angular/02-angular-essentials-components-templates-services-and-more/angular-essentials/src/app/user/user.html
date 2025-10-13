@@ -1,4 +1,4 @@
-<div>
+<app-card>
   <button [class.active]="selected" (click)="onSelectUser()">
     <!-- Property binding -->
     <img [src]="imagePath" [alt]="user.name" />
@@ -6,4 +6,4 @@
     <!-- Sting Interpolation -->
     <span>{{ user.name }}</span>
   </button>
-</div>
+</app-card>
