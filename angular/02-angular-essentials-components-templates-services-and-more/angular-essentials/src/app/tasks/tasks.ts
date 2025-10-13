@@ -1,8 +1,7 @@
-import { Component, Inject, inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Task } from './task/task';
 import { NewTask } from './new-task/new-task';
-import { type NewTaskData } from './task/task.model';
-import { TasksService } from './tasks.service';
+import { TasksService } from './tasksService';
 
 @Component({
   selector: 'app-tasks',
@@ -20,10 +19,6 @@ export class Tasks {
 
   get selectedUserTasks() {
     return this.tasksService.getUserTasks(this.userId);
-  }
-
-  onCompleteTask(id: string) {
-    this.tasksService.removeTask(id);
   }
 
   onStartAddTask() {
