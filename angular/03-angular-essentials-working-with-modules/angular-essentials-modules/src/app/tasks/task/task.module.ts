@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Task } from './task.component';
+import { TaskComponent } from './task.component';
 import { CardModule } from '../../shared/card/card.module';
 
 @NgModule({
-  declarations: [Task],
+  declarations: [TaskComponent],
   imports: [CommonModule, CardModule],
-  exports: [Task],
-  providers: [DatePipe]
+  exports: [TaskComponent],
+  providers: [],
 })
 export class TaskModule {}

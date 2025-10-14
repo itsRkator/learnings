@@ -8,7 +8,7 @@ import { TasksService } from '../tasks.service';
   templateUrl: './task.component.html',
   styleUrl: './task.component.css',
 })
-export class Task {
+export class TaskComponent {
   @Input({ required: true }) task!: TaskType;
 
   constructor(private readonly tasksService: TasksService) {}

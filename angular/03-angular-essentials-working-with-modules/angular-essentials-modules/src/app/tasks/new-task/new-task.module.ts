@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NewTask } from './new-task.component';
+import { NewTaskComponent } from './new-task.component';
 
 @NgModule({
-  declarations: [NewTask],
+  declarations: [NewTaskComponent],
   imports: [CommonModule, FormsModule],
-  exports: [NewTask]
+  exports: [NewTaskComponent],
 })
 export class NewTaskModule {}

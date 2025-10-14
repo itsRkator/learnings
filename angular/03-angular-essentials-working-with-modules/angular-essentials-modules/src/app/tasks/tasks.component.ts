@@ -7,7 +7,7 @@ import { TasksService } from './tasks.service';
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
-export class Tasks {
+export class TasksComponent {
   @Input({ required: true }) userId!: string;
   @Input() name: string | undefined;
   isAddingTask: boolean = false;

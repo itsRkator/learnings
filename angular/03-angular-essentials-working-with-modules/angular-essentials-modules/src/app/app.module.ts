@@ -6,8 +6,8 @@ import { routes } from './app.routes';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './header/header.module';
 import { UserModule } from './user/user.module';
-import { CardModule } from './shared/card/card.module';
 import { TasksModule } from './tasks/tasks.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +17,7 @@ import { TasksModule } from './tasks/tasks.module';
     RouterModule.forRoot(routes),
     HeaderModule,
     UserModule,
-    CardModule,
+    SharedModule,
     TasksModule,
   ],
 })

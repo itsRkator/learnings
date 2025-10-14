@@ -1,5 +1,3 @@
-import { NewTask } from '../new-task/new-task.component';
-
 export interface Task {
   id: string;
   userId: string;
