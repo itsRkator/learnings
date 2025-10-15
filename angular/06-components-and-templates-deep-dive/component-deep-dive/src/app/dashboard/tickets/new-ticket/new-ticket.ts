@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Button } from '../../../shared/button/button';
@@ -11,8 +11,11 @@ import { Control } from '../../../shared/control/control';
   styleUrl: './new-ticket.css',
 })
 export class NewTicket {
-  onSubmit(title: string, text: string): void {
+  
+  onSubmit(title: string, text: string, formElement: HTMLFormElement): void {
     const enteredTitle = title;
     const enteredRequest = text;
+
+    formElement.reset();
   }
 }
