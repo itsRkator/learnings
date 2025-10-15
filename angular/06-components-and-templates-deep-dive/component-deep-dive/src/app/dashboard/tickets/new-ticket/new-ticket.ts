@@ -12,7 +12,7 @@ import { Control } from '../../../shared/control/control';
 })
 export class NewTicket {
   onSubmit(title: HTMLInputElement, request: HTMLTextAreaElement): void {
-    console.dir(title.value);
-    console.dir(request.value);
+    const enteredTitle = title.value;
+    const enteredRequest = request.value;
   }
 }
