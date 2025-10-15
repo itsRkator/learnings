@@ -1,4 +1,12 @@
-import { Component, HostBinding, HostListener, input, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  inject,
+  input,
+  ViewEncapsulation,
+} from '@angular/core';
 
 @Component({
   selector: 'app-control',
@@ -23,8 +31,13 @@ export class Control {
   // }
 
   label = input.required<string>();
+  
+  // Accessing the host element by DI as well as constructor
+  // private readonly hostElement = inject(ElementRef);
+  constructor(private readonly hostElement: ElementRef) {}
 
   onClick() {
     console.log('Clicked');
+    console.log(this.hostElement);
   }
 }
