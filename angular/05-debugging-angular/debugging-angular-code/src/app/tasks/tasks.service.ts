@@ -44,7 +44,7 @@ export class TasksService {
   addTask(taskData: NewTaskData, userId: string) {
     this.tasks.unshift({
       id: new Date().getTime().toString(),
-      userId: userId,
+      userId,
       title: taskData.title,
       summary: taskData.summary,
       dueDate: taskData.date,
