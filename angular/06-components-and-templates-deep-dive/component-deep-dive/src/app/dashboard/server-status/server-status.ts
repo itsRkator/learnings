@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
 
 @Component({
@@ -7,14 +7,17 @@ import { interval } from 'rxjs';
   templateUrl: './server-status.html',
   styleUrl: './server-status.css',
 })
-export class ServerStatus implements OnInit, AfterViewInit, OnDestroy {
-  private interval?: number;
+// , OnDestroy
+export class ServerStatus implements OnInit, AfterViewInit {
+  // private interval?: number;
+  private destroyRef = inject(DestroyRef);
+
   currentStatus: 'online' | 'offline' | 'unknown' = 'online';
 
   constructor() {}
 
   ngOnInit(): void {
-    this.interval = setInterval(() => {
+    const interval = setInterval(() => {
       console.log('On Init');
 
       const random = Math.random();
@@ -27,13 +30,18 @@ export class ServerStatus implements OnInit, AfterViewInit, OnDestroy {
         this.currentStatus = 'unknown';
       }
     }, 5000);
+
+    // Alternative to the OnDestroy lifecycle hook
+    this.destroyRef.onDestroy(() => {
+      clearInterval(interval);
+    });
   }
 
   ngAfterViewInit(): void {
     console.log('After view Init');
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.interval);
-  }
+  // ngOnDestroy(): void {
+  //   clearInterval(this.interval);
+  // }
 }
