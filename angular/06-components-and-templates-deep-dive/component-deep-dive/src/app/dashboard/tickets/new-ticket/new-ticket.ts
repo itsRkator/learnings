@@ -11,8 +11,8 @@ import { Control } from '../../../shared/control/control';
   styleUrl: './new-ticket.css',
 })
 export class NewTicket {
-  onSubmit(title: HTMLInputElement, request: HTMLTextAreaElement): void {
-    const enteredTitle = title.value;
-    const enteredRequest = request.value;
+  onSubmit(title: string, text: string): void {
+    const enteredTitle = title;
+    const enteredRequest = text;
   }
 }
