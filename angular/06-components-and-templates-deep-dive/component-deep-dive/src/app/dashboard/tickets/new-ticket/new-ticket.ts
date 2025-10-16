@@ -3,7 +3,10 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   OnInit,
+  output,
+  Output,
   viewChild,
   ViewChild,
 } from '@angular/core';
@@ -21,6 +24,8 @@ import { Control } from '../../../shared/control/control';
 export class NewTicket implements OnInit, AfterViewInit {
   @ViewChild('form') formElement?: ElementRef<HTMLFormElement>;
 
+  // @Output() add = new EventEmitter<{ title: string; text: string }>();
+
   // TODO: How to use ViewChildren/ContentChildren directives and viewChildren/contentChildren signals
   // @ViewChildren("") buttonChildren?: ElementRef;
 
@@ -28,6 +33,8 @@ export class NewTicket implements OnInit, AfterViewInit {
   // formElement = viewChild<ElementRef<HTMLFormElement>>('form');
   titleElement = viewChild<ElementRef<HTMLInputElement>>('titleInput');
   textElement = viewChild<ElementRef<HTMLTextAreaElement>>('textInput');
+
+  add = output<{ title: string; text: string }>();
 
   ngOnInit(): void {
     console.log('On Init in NewTicket Component');
@@ -40,11 +47,9 @@ export class NewTicket implements OnInit, AfterViewInit {
   }
 
   onSubmit(title: string, text: string): void {
-    const enteredTitle = title;
-    const enteredRequest = text;
+    
 
-    console.log(this.titleElement()?.nativeElement.value);
-    console.log(this.textElement()?.nativeElement.value);
+    this.add.emit({title, text});
 
     this.formElement?.nativeElement.reset();
   }
