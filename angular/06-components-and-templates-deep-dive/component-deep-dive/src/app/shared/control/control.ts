@@ -46,12 +46,17 @@ export class Control implements OnInit, AfterContentInit {
   // Accessing the host element by DI as well as constructor
   // private readonly hostElement = inject(ElementRef);
   constructor(private readonly hostElement: ElementRef) {
+    // Runs once the next time that all components have been rendered to the DOM.
+    // In earlier versions: afterRender
     afterNextRender(() => {
       console.log('After Next Render');
-    }); // Earlier afterRender
+    });
+
+    // Runs every time all components have been rendered to the DOM.
+    // In earlier versions: afterNextRender
     afterEveryRender(() => {
       console.log('After Every Render');
-    }); // Earlier afterNextRender
+    });
   }
 
   ngOnInit(): void {
