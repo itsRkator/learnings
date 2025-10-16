@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   Component,
   contentChild,
   ContentChild,
@@ -7,6 +8,7 @@ import {
   HostListener,
   inject,
   input,
+  OnInit,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -23,7 +25,7 @@ import {
     '(click)': 'onClick()',
   },
 })
-export class Control {
+export class Control implements OnInit, AfterContentInit {
   // HostBinding should be omitted
   // @HostBinding('class') className = 'control';
 
@@ -42,6 +44,16 @@ export class Control {
   // Accessing the host element by DI as well as constructor
   // private readonly hostElement = inject(ElementRef);
   constructor(private readonly hostElement: ElementRef) {}
+
+  ngOnInit(): void {
+    console.log('On Init in Control Component');
+    console.log(this.control?.nativeElement);
+  }
+
+  ngAfterContentInit(): void {
+    console.log('After Content Init');
+    console.log(this.control?.nativeElement);
+  }
 
   onClick() {
     console.log('Clicked');
