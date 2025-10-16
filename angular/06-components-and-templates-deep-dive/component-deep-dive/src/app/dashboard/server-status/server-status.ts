@@ -24,8 +24,14 @@ export class ServerStatus implements OnInit, AfterViewInit {
   currentStatus = signal<'online' | 'offline' | 'unknown'>('offline');
 
   constructor() {
-    effect(() => {
-      console.log('Server Status Component: ', this.currentStatus());
+    effect((onCleanUp) => {
+      const timer = setTimeout(() => {
+        console.log('This is here to check the onCleanUp');
+
+        onCleanUp(() => {
+          clearTimeout(timer);
+        });
+      }, 1000);
     });
   }
 
