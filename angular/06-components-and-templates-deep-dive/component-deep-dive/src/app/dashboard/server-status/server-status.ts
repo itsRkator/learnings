@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  DestroyRef,
+  effect,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { interval } from 'rxjs';
 
 @Component({
@@ -12,9 +21,13 @@ export class ServerStatus implements OnInit, AfterViewInit {
   // private interval?: number;
   private destroyRef = inject(DestroyRef);
 
-  currentStatus: 'online' | 'offline' | 'unknown' = 'online';
+  currentStatus = signal<'online' | 'offline' | 'unknown'>('offline');
 
-  constructor() {}
+  constructor() {
+    effect(() => {
+      console.log('Server Status Component: ', this.currentStatus());
+    });
+  }
 
   ngOnInit(): void {
     const interval = setInterval(() => {
@@ -23,11 +36,11 @@ export class ServerStatus implements OnInit, AfterViewInit {
       const random = Math.random();
 
       if (random < 0.5) {
-        this.currentStatus = 'online';
+        this.currentStatus.set('online');
       } else if (random < 0.9) {
-        this.currentStatus = 'offline';
+        this.currentStatus.set('offline');
       } else {
-        this.currentStatus = 'unknown';
+        this.currentStatus.set('unknown');
       }
     }, 5000);
 
