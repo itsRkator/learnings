@@ -13,6 +13,8 @@ import { Control } from '../../../shared/control/control';
 export class NewTicket {
   @ViewChild('form') formElement?: ElementRef<HTMLFormElement>;
 
+  // Using signals
+  // formElement = viewChild<ElementRef<HTMLFormElement>>('form');
   titleElement = viewChild<ElementRef<HTMLInputElement>>('titleInput');
   textElement = viewChild<ElementRef<HTMLTextAreaElement>>('textInput');
 

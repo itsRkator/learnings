@@ -1,5 +1,7 @@
 import {
   Component,
+  contentChild,
+  ContentChild,
   ElementRef,
   HostBinding,
   HostListener,
@@ -30,8 +32,13 @@ export class Control {
   //   console.log('Clicked');
   // }
 
+  @ContentChild('input') private control?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
+
+  // Using signal
+  // private control = contentChild<ElementRef<HTMLInputElement | HTMLTextAreaElement>>('input')
+
   label = input.required<string>();
-  
+
   // Accessing the host element by DI as well as constructor
   // private readonly hostElement = inject(ElementRef);
   constructor(private readonly hostElement: ElementRef) {}
@@ -39,5 +46,6 @@ export class Control {
   onClick() {
     console.log('Clicked');
     console.log(this.hostElement);
+    console.log(this.control?.nativeElement);
   }
 }
