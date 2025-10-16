@@ -47,10 +47,7 @@ export class NewTicket implements OnInit, AfterViewInit {
   }
 
   onSubmit(title: string, text: string): void {
-    
-
-    this.add.emit({title, text});
-
+    this.add.emit({ title, text });
     this.formElement?.nativeElement.reset();
   }
 }
