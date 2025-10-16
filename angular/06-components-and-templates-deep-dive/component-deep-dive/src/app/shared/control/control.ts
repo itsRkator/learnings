@@ -1,5 +1,7 @@
 import {
   AfterContentInit,
+  afterEveryRender,
+  afterNextRender,
   Component,
   contentChild,
   ContentChild,
@@ -43,7 +45,14 @@ export class Control implements OnInit, AfterContentInit {
 
   // Accessing the host element by DI as well as constructor
   // private readonly hostElement = inject(ElementRef);
-  constructor(private readonly hostElement: ElementRef) {}
+  constructor(private readonly hostElement: ElementRef) {
+    afterNextRender(() => {
+      console.log('After Next Render');
+    }); // Earlier afterRender
+    afterEveryRender(() => {
+      console.log('After Every Render');
+    }); // Earlier afterNextRender
+  }
 
   ngOnInit(): void {
     console.log('On Init in Control Component');
