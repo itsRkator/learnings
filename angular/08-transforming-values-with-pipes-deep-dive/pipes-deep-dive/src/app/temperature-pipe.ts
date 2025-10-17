@@ -7,10 +7,14 @@ type TemperatureUnit = 'celsius' | 'fahrenheit' | 'kelvin';
 })
 export class TemperaturePipe implements PipeTransform {
   transform(
-    temperatureValue: number | string,
+    temperatureValue: number | string | null,
     sourceTemperatureUnit: TemperatureUnit,
     targetTemperatureUnit?: TemperatureUnit
-  ): string {
+  ): string | null {
+    if (temperatureValue === null) {
+      return temperatureValue;
+    }
+    
     let numericTemperatureValue: number;
 
     if (typeof temperatureValue === 'string') {
@@ -54,6 +58,6 @@ export class TemperaturePipe implements PipeTransform {
       temperatureUnitSymbol = '°F';
     }
 
-    return `${convertedTemperatureValue} ${temperatureUnitSymbol}`;
+    return `${convertedTemperatureValue.toFixed(2)} ${temperatureUnitSymbol}`;
   }
 }
