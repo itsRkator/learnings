@@ -34,9 +34,9 @@
       </div>
     </header>
     <ul>
-      @for (temperature of historicTemperatures; track temperature) {
+      @for (temperature of historicTemperatures; track $index) {
       <li (click)="onReset($index)">
-        {{ temperature | number : '1.1-2' | temperature : 'fahrenheit' : 'celsius' }}
+        {{ temperature | number : '1.1-2' | temperature : 'fahrenheit' }}
       </li>
       }
     </ul>
