@@ -1,0 +1,51 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<main>
+  <article class="temperatures">
+    <header>
+      <img src="temp-icon.png" alt="Thermometer icon" />
+      <div>
+        <h2>Current Temperatures</h2>
+        <p>{{ currentDate | date : 'medium' }}</p>
+      </div>
+    </header>
+    <p>New York: {{ currentTemperaturs.newYork | temperature : 'celsius' : 'fahrenheit' }}</p>
+    <p>Berlin: {{ currentTemperaturs.berlin | temperature : 'celsius' }}</p>
+    <p>Paris: {{ currentTemperaturs.paris | temperature : 'celsius' }}</p>
+    <p>Chicago: {{ currentTemperaturs.chicago | temperature : 'celsius' }}</p>
+  </article>
+
+  <article class="temperatures">
+    <header>
+      <img src="temp-icon.png" alt="Thermometer icon" />
+      <div>
+        <h2>Historic Temperatures</h2>
+        <p>Berlin</p>
+      </div>
+    </header>
+    <ul>
+      @for (temperature of historicTemperatures; track temperature) {
+      <li (click)="onReset($index)">
+        {{ temperature | temperature : 'fahrenheit' : 'celsius' }}
+      </li>
+      }
+    </ul>
+  </article>
+</main>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<router-outlet />
