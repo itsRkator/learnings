@@ -15,9 +15,9 @@
   <app-auth />
 
   <!-- Conditional rendering syntax, not a directive -->
-  @if(isAdmin()){
+  <!-- @if(isAdmin()){
   <p>Only admins should see this!</p>
-  }
+  } -->
 
   <!-- Structural Directive: Directive that changes the structure of the DOM (Deprecated in newer versions of angular) -->
   <!-- <p *ngIf="isAdmin()">Only admins should see this!</p> -->
@@ -26,6 +26,17 @@
       <p>{{ item }}</p>
     </li>
   </ul> -->
+
+  <!-- Custom Structural Directive -->
+  <p *appAuth="'admin'" class="protected-content admin">
+    Only admins should see this using custom directive!!
+  </p>
+  <p *appAuth="'user'" class="protected-content unauthenticated">
+    Regular users should see this using custom directive!!
+  </p>
+  <p *appAuth="'guest'" class="protected-content authenticated">
+    Guest users should see this using custom directive!!
+  </p>
 </main>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
