@@ -1,4 +1,5 @@
-import { Directive, input, ɵisEnvironmentProviders } from '@angular/core';
+import { Directive, ElementRef, inject, input, ɵisEnvironmentProviders } from '@angular/core';
+import { AuthService } from './auth/auth.service';
 
 @Directive({
   selector: 'a[appSafeLink]',
@@ -9,8 +10,7 @@ import { Directive, input, ɵisEnvironmentProviders } from '@angular/core';
 })
 export class SafeLinkDirective {
   queryParam = input('myapp', { alias: 'appSafeLink' });
-
-  constructor() {
+  constructor(private readonly hostElement: ElementRef<HTMLAnchorElement>) {
     console.log('SafeLinkDirective is active!!');
   }
 
@@ -20,9 +20,9 @@ export class SafeLinkDirective {
     console.log(this.queryParam());
 
     if (wantsToLeave) {
-      const address = (event.target as HTMLAnchorElement).href; // TypeScript-Typecasting
+      const address = this.hostElement.nativeElement.href; // TypeScript-Typecasting
 
-      (event.target as HTMLAnchorElement).href = address.includes('?')
+      this.hostElement.nativeElement.href = address.includes('?')
         ? address + `&from=${this.queryParam()}`
         : address + `?from=${this.queryParam()}`;
       return;
