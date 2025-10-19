@@ -1,5 +1,10 @@
-import { Component, computed, input } from '@angular/core';
-import { type Task as TaskType, TaskStatus } from '../../task.model';
+import { Component, computed, Inject, input } from '@angular/core';
+import {
+  type Task as TaskType,
+  TASK_STATUS_OPTIONS_TOKEN,
+  TaskStatus,
+  TaskStatusOption,
+} from '../../task.model';
 import { TasksService } from '../../tasks.service';
 import { FormsModule } from '@angular/forms';
 
@@ -24,7 +29,10 @@ export class TaskItem {
     }
   });
 
-  constructor(private readonly tasksService: TasksService) {}
+  constructor(
+    private readonly tasksService: TasksService,
+    @Inject(TASK_STATUS_OPTIONS_TOKEN) public readonly taskStatusOptions: TaskStatusOption[]
+  ) {}
 
   onChangeTaskStatus(taskId: string, status: string) {
     let newStatus: TaskStatus = 'OPEN';
@@ -43,6 +51,6 @@ export class TaskItem {
         break;
     }
 
-    this.tasksService.updateTaskStatus(taskId, newStatus)
+    this.tasksService.updateTaskStatus(taskId, newStatus);
   }
 }

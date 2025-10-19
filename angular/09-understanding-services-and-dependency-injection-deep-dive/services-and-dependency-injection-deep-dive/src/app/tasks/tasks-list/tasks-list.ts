@@ -1,17 +1,23 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, Inject, inject, signal } from '@angular/core';
 import { TaskItem } from './task-item/task-item';
 import { TasksService } from '../tasks.service';
+import { TASK_STATUS_OPTIONS_TOKEN, taskStatusOptionsProvider } from '../task.model';
 
 @Component({
   selector: 'app-tasks-list',
   imports: [TaskItem],
   templateUrl: './tasks-list.html',
   styleUrl: './tasks-list.css',
+  providers: [taskStatusOptionsProvider],
 })
 export class TasksList {
   private readonly tasksService = inject(TasksService);
 
+  public readonly taskStatusOptions = inject(TASK_STATUS_OPTIONS_TOKEN);
+
   private selectedFilter = signal<string>('all');
+
+  // constructor(@Inject(TASK_STATUS_OPTIONS_TOKEN) taskStatusOptions: TASK_STATUS_OPTIONS){} // Alternative to non-service DI
 
   tasks = computed(() => {
     switch (this.selectedFilter()) {
