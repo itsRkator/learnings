@@ -1,7 +1,7 @@
 import { Component, computed, Inject, inject, signal } from '@angular/core';
 import { TaskItem } from './task-item/task-item';
 import { TasksService } from '../tasks.service';
-import { TASK_STATUS_OPTIONS, taskStatusOptionsProvider } from '../task.model';
+import { TASK_STATUS_OPTIONS, TaskStatusOption, taskStatusOptionsProvider } from '../task.model';
 
 @Component({
   selector: 'app-tasks-list',
@@ -13,11 +13,11 @@ import { TASK_STATUS_OPTIONS, taskStatusOptionsProvider } from '../task.model';
 export class TasksList {
   private readonly tasksService = inject(TasksService);
 
-  public readonly taskStatusOptions = inject(TASK_STATUS_OPTIONS);
+  // public readonly taskStatusOptions = inject(TASK_STATUS_OPTIONS);
 
   private selectedFilter = signal<string>('all');
 
-  // constructor(@Inject(TASK_STATUS_OPTIONS) taskStatusOptions: TASK_STATUS_OPTIONS){} // Alternative to non-service DI
+  constructor(@Inject(TASK_STATUS_OPTIONS) public readonly taskStatusOptions: TaskStatusOption[]) {} // Alternative to non-service DI
 
   tasks = computed(() => {
     switch (this.selectedFilter()) {
