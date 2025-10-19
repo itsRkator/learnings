@@ -8,9 +8,7 @@ export type TaskStatusOption = {
   taskStatus: TaskStatus;
 };
 
-export const TASK_STATUS_OPTIONS_TOKEN = new InjectionToken<TaskStatusOption[]>(
-  'task-status-options'
-);
+export const TASK_STATUS_OPTIONS = new InjectionToken<TaskStatusOption[]>('task-status-options');
 
 export const TaskStatusOptions: TaskStatusOption[] = [
   { value: 'open', taskStatus: 'OPEN', text: 'Open' },
@@ -19,7 +17,7 @@ export const TaskStatusOptions: TaskStatusOption[] = [
 ];
 
 export const taskStatusOptionsProvider: Provider = {
-  provide: TASK_STATUS_OPTIONS_TOKEN,
+  provide: TASK_STATUS_OPTIONS,
   useValue: TaskStatusOptions,
 };
 

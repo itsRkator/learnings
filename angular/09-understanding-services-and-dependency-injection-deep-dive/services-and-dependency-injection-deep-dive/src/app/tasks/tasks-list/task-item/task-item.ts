@@ -1,7 +1,7 @@
 import { Component, computed, Inject, input } from '@angular/core';
 import {
   type Task as TaskType,
-  TASK_STATUS_OPTIONS_TOKEN,
+  TASK_STATUS_OPTIONS,
   TaskStatus,
   TaskStatusOption,
 } from '../../task.model';
@@ -31,7 +31,7 @@ export class TaskItem {
 
   constructor(
     private readonly tasksService: TasksService,
-    @Inject(TASK_STATUS_OPTIONS_TOKEN) public readonly taskStatusOptions: TaskStatusOption[]
+    @Inject(TASK_STATUS_OPTIONS) public readonly taskStatusOptions: TaskStatusOption[]
   ) {}
 
   onChangeTaskStatus(taskId: string, status: string) {
