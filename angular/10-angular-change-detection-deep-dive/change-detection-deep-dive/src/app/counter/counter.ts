@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, NgZone, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { InfoMessage } from '../info-message/info-message';
 
 @Component({
@@ -9,8 +9,6 @@ import { InfoMessage } from '../info-message/info-message';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Counter implements OnInit {
-  private readonly zone = inject(NgZone);
-
   count = signal(0);
 
   get debugOutput() {
@@ -23,11 +21,9 @@ export class Counter implements OnInit {
       this.count.set(0);
     }, 3000);
 
-    this.zone.runOutsideAngular(() => {
-      setTimeout(() => {
-        console.log('Timer Expired!!');
-      }, 5000);
-    });
+    setTimeout(() => {
+      console.log('Timer Expired!!');
+    }, 5000);
   }
 
   onDecrement() {

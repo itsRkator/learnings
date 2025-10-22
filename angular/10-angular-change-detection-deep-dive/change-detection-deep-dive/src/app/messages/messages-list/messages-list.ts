@@ -8,11 +8,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { MessagesService } from '../messages.service';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-messages-list',
-  imports: [AsyncPipe],
+  imports: [],
   templateUrl: './messages-list.html',
   styleUrl: './messages-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
