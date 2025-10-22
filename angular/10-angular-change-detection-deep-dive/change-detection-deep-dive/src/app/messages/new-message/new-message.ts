@@ -1,4 +1,4 @@
-import { Component, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule],
   templateUrl: './new-message.html',
   styleUrl: './new-message.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewMessage {
   add = output<string>();
