@@ -19,11 +19,11 @@ import { AsyncPipe } from '@angular/common';
 })
 export class MessagesList {
   private readonly messagesService = inject(MessagesService);
-  messages$ = this.messagesService.messages$;
+  // messages$ = this.messagesService.messages$;
   // private readonly changeDetectionRef = inject(ChangeDetectorRef);
   // private readonly destroyRef = inject(DestroyRef);
 
-  // messages = this.messagesService.allMessages;
+  messages = this.messagesService.allMessages;
 
   // messages: string[] = [];
 

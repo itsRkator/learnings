@@ -10,8 +10,8 @@ import { MessagesService } from '../messages.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewMessage {
-  // enteredText = signal('');
-  enteredText = '';
+  enteredText = signal('');
+  // enteredText = '';
 
   constructor(private readonly messagesService: MessagesService) {}
 
@@ -21,10 +21,10 @@ export class NewMessage {
   }
 
   onSubmit() {
-    // this.messagesService.addMessage(this.enteredText());
-    // this.enteredText.set('');
+    this.messagesService.addMessage(this.enteredText());
+    this.enteredText.set('');
 
-    this.messagesService.addMessage(this.enteredText);
-    this.enteredText = '';
+    // this.messagesService.addMessage(this.enteredText);
+    // this.enteredText = '';
   }
 }
