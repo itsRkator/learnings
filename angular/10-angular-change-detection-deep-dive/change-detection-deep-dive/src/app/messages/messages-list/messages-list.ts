@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { MessagesService } from '../messages.service';
 
 @Component({
   selector: 'app-messages-list',
@@ -7,8 +16,26 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   styleUrl: './messages-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessagesList {
-  messages = input.required<string[]>();
+export class MessagesList implements OnInit {
+  private readonly messagesService = inject(MessagesService);
+  private readonly changeDetectionRef = inject(ChangeDetectorRef);
+  private readonly destroyRef = inject(DestroyRef);
+
+  // messages = this.messagesService.allMessages;
+
+  messages: string[] = [];
+
+  ngOnInit(): void {
+    const subscription = this.messagesService.messages$.subscribe((updatedMessages) => {
+      this.messages = updatedMessages;
+      this.changeDetectionRef.markForCheck();
+    });
+
+    // Alternatively the OnDestroy Interface can be used
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
+  }
 
   get debugOutput() {
     console.log('[MessagesList] "debugOutput" binding re-evaluated.');

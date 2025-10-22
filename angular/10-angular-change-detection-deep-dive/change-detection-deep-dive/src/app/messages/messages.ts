@@ -10,14 +10,8 @@ import { MessagesList } from './messages-list/messages-list';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Messages {
-  messages = signal<string[]>([]);
-
   get debugOutput() {
     console.log('[Messages] "debugOutput" binding re-evaluated.');
     return 'Messages Component Debug Output';
-  }
-
-  onAddMessage(message: string) {
-    this.messages.update((oldMessages) => [...oldMessages, message]);
   }
 }
