@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { debounceTime, Observable, of } from 'rxjs';
 
 function mustContainDollarSymbol(control: AbstractControl) {
   if (control.value.includes('$')) {
@@ -23,15 +23,22 @@ function isEmailUnique(control: AbstractControl) {
   return of({ isUnique: false });
 }
 
+let initialEmail = '';
+const savedForm = window.localStorage.getItem('saved-login-form');
+if (savedForm) {
+  const loadedForm: { email: string } = JSON.parse(savedForm);
+  initialEmail = loadedForm.email;
+}
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
   loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', {
+    email: new FormControl(initialEmail, {
       validators: [Validators.email, Validators.required],
       asyncValidators: [isEmailUnique],
     }),
@@ -54,6 +61,25 @@ export class Login {
       this.loginForm.controls['password'].dirty &&
       this.loginForm.controls['password'].invalid
     );
+  }
+
+  ngOnInit(): void {
+    // const savedForm = window.localStorage.getItem('saved-login-form');
+    // if (savedForm) {
+    //   const loadedForm: { email: string } = JSON.parse(savedForm);
+    //   this.loginForm.patchValue({ email: loadedForm.email });
+    // }
+
+    const subscription = this.loginForm.valueChanges.pipe(debounceTime(500)).subscribe({
+      next: (value: { email: string | null; password: string | null }) => {
+        console.log(value);
+        window.localStorage.setItem('saved-login-form', JSON.stringify({ email: value.email }));
+      },
+    });
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 
   onSubmit() {
