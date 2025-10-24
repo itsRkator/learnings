@@ -12,29 +12,35 @@ export class Signup {
     email: new FormControl<string>('', {
       validators: [Validators.email, Validators.required],
     }),
-    password: new FormControl<string>('', {
-      validators: [Validators.required, Validators.minLength(6)],
+    passwords: new FormGroup({
+      password: new FormControl<string>('', {
+        validators: [Validators.required, Validators.minLength(6)],
+      }),
+      confirmPassword: new FormControl<string>('', {
+        validators: [Validators.required, Validators.minLength(6)],
+      }),
     }),
-    confirmPassword: new FormControl<string>('', {
-      validators: [Validators.required, Validators.minLength(6)],
+    name: new FormGroup({
+      firstName: new FormControl<string>('', {
+        validators: [Validators.required],
+      }),
+      lastName: new FormControl<string>('', {
+        validators: [Validators.required],
+      }),
     }),
-    firstName: new FormControl<string>('', {
-      validators: [Validators.required],
-    }),
-    lastName: new FormControl<string>('', {
-      validators: [Validators.required],
-    }),
-    street: new FormControl<string>('', {
-      validators: [Validators.required],
-    }),
-    number: new FormControl<string>('', {
-      validators: [Validators.required],
-    }),
-    postalCode: new FormControl<string>('', {
-      validators: [Validators.required],
-    }),
-    city: new FormControl<string>('', {
-      validators: [Validators.required],
+    address: new FormGroup({
+      street: new FormControl<string>('', {
+        validators: [Validators.required],
+      }),
+      number: new FormControl<string>('', {
+        validators: [Validators.required],
+      }),
+      postalCode: new FormControl<string>('', {
+        validators: [Validators.required],
+      }),
+      city: new FormControl<string>('', {
+        validators: [Validators.required],
+      }),
     }),
     role: new FormControl<'student' | 'teacher' | 'employee' | 'founder' | 'other'>('student', {
       validators: [Validators.required],
