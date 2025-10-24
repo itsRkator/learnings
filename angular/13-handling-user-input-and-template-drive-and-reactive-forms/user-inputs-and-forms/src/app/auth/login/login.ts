@@ -27,10 +27,11 @@ export class Login {
       const savedEmail = loadedFormData.email;
 
       setTimeout(() => {
+        // this.form().setValue({email: savedEmail, password: ''}) // If the entire form object needs to be updated
         this.form().controls['email'].setValue(savedEmail);
-      });
+      }, 1);
     }
-    
+
     afterNextRender(() => {
       const subscription = this.form()
         .valueChanges?.pipe(debounceTime(500))
@@ -45,8 +46,9 @@ export class Login {
       });
     });
   }
+
   onSubmit(formData: NgForm) {
-    if (!formData.form.valid) {
+    if (formData.form.invalid) {
       return;
     }
 
