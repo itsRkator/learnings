@@ -114,4 +114,7 @@
     <button type="reset" class="button button-flat">Reset</button>
     <button type="submit" class="button">Sign up</button>
   </p>
+  @if(this.signUpForm.touched && signUpForm.invalid){
+  <p class="control-error">Invalid form - please check you input data</p>
+  }
 </form>
