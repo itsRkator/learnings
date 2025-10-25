@@ -11,25 +11,25 @@ import {
   OnInit,
 } from '@angular/core';
 import { UsersService } from '../users.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-user-tasks',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './user-tasks.html',
   styleUrl: './user-tasks.css',
 })
-export class UserTasks implements OnInit {
+export class UserTasks {
   private readonly usersService: UsersService = inject(UsersService);
 
   // Different Methods to extract dynamic route params
   // Using signals
-  // userId = input.required<string>();
-  // userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
+  userId = input.required<string>();
+  userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
 
   // Using Input Decorator
   // selectedUserId: string = '';
-  userName: string = '';
+  // userName: string = '';
   // @Input({ required: true })
   // set userId(id: string) {
   //   this.selectedUserId = id;
@@ -37,19 +37,20 @@ export class UserTasks implements OnInit {
   // }
 
   // Using Observables
-  private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly destroyRef = inject(DestroyRef);
+  // private readonly activatedRoute = inject(ActivatedRoute);
+  // private readonly destroyRef = inject(DestroyRef);
+  // userName: string = '';
 
-  ngOnInit(): void {
-    const subscription = this.activatedRoute.paramMap.subscribe({
-      next: (paramMap) => {
-        this.userName =
-          this.usersService.users.find((u) => u.id === paramMap.get('userId'))?.name ?? '';
-      },
-    });
+  // ngOnInit(): void {
+  //   const subscription = this.activatedRoute.paramMap.subscribe({
+  //     next: (paramMap) => {
+  //       this.userName =
+  //         this.usersService.users.find((u) => u.id === paramMap.get('userId'))?.name ?? '';
+  //     },
+  //   });
 
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-    });
-  }
+  //   this.destroyRef.onDestroy(() => {
+  //     subscription.unsubscribe();
+  //   });
+  // }
 }

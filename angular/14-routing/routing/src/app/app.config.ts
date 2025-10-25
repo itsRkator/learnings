@@ -12,8 +12,8 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
-      routes, 
-      // withComponentInputBinding()
+      routes,
+      withComponentInputBinding() // Required when the dynamic params are extracted using inputs
     ),
   ],
 };
