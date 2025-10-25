@@ -4,12 +4,14 @@ import {
   afterNextRender,
   Component,
   computed,
+  DestroyRef,
   inject,
   Input,
   input,
   OnInit,
 } from '@angular/core';
 import { UsersService } from '../users.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-tasks',
@@ -17,19 +19,38 @@ import { UsersService } from '../users.service';
   templateUrl: './user-tasks.html',
   styleUrl: './user-tasks.css',
 })
-export class UserTasks {
+export class UserTasks implements OnInit {
   private readonly usersService: UsersService = inject(UsersService);
 
+  // Different Methods to extract dynamic route params
   // Using signals
   // userId = input.required<string>();
   // userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
 
   // Using Input Decorator
-  selectedUserId: string = '';
+  // selectedUserId: string = '';
   userName: string = '';
-  @Input({ required: true })
-  set userId(id: string) {
-    this.selectedUserId = id;
-    this.userName = this.usersService.users.find((u) => u.id === this.selectedUserId)?.name!;
+  // @Input({ required: true })
+  // set userId(id: string) {
+  //   this.selectedUserId = id;
+  //   this.userName = this.usersService.users.find((u) => u.id === this.selectedUserId)?.name ?? '';
+  // }
+
+  // Using Observables
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
+
+  ngOnInit(): void {
+    const subscription = this.activatedRoute.paramMap.subscribe({
+      next: (paramMap) => {
+        console.log(paramMap);
+        this.userName =
+          this.usersService.users.find((u) => u.id === paramMap.get('userId'))?.name ?? '';
+      },
+    });
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 }
