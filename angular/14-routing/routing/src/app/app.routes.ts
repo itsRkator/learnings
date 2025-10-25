@@ -19,7 +19,7 @@ export const routes: Routes = [
         component: Tasks,
       },
       {
-        path: 'task/new',
+        path: 'tasks/new',
         component: NewTask,
       },
     ],

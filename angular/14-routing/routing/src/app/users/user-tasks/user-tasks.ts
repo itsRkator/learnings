@@ -11,11 +11,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { UsersService } from '../users.service';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterOutlet, RouterLinkWithHref, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-tasks',
-  imports: [RouterOutlet],
+  imports: [
+    RouterOutlet,
+    // RouterLink,
+    RouterLinkWithHref,
+  ],
   templateUrl: './user-tasks.html',
   styleUrl: './user-tasks.css',
 })
