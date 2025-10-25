@@ -1,6 +1,7 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { type Task as TaskType } from './task/task.model';
 import { Task } from './task/task';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -14,5 +15,8 @@ export class Tasks {
   // Directly accessible using the ActivatedRoute's paramMap Observables
   userId = input.required<string>();
 
-  userTasks: TaskType[] = [];
+  private readonly tasksService: TasksService = inject(TasksService);
+  userTasks = computed(() =>
+    this.tasksService.allTasks().filter((task) => task.userId === this.userId())
+  );
 }
