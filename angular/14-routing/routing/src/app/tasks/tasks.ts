@@ -11,6 +11,7 @@ import { Task } from './task/task';
 export class Tasks {
   // Router params of the parent won't accessible by default via input by the child route
   // Need to be explicitly inherited via the withRouterConfig({ paramsInheritanceStrategy: 'always' }) in the provideRouter config
+  // Directly accessible using the ActivatedRoute's paramMap Observables
   userId = input.required<string>();
 
   userTasks: TaskType[] = [];

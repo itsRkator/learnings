@@ -40,7 +40,7 @@ export class UserTasks {
   //   this.userName = this.usersService.users.find((u) => u.id === this.selectedUserId)?.name ?? '';
   // }
 
-  // Using Observables
+  // Using ActivatedRoute Observables
   // private readonly activatedRoute = inject(ActivatedRoute);
   // private readonly destroyRef = inject(DestroyRef);
   // userName: string = '';
