@@ -1,4 +1,14 @@
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import {
+  AfterContentInit,
+  afterEveryRender,
+  afterNextRender,
+  Component,
+  computed,
+  inject,
+  Input,
+  input,
+  OnInit,
+} from '@angular/core';
 import { UsersService } from '../users.service';
 
 @Component({
@@ -7,12 +17,19 @@ import { UsersService } from '../users.service';
   templateUrl: './user-tasks.html',
   styleUrl: './user-tasks.css',
 })
-export class UserTasks implements OnInit {
-  userId = input.required<string>();
-
+export class UserTasks {
   private readonly usersService: UsersService = inject(UsersService);
 
-  userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
+  // Using signals
+  // userId = input.required<string>();
+  // userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
 
-  ngOnInit(): void {}
+  // Using Input Decorator
+  selectedUserId: string = '';
+  userName: string = '';
+  @Input({ required: true })
+  set userId(id: string) {
+    this.selectedUserId = id;
+    this.userName = this.usersService.users.find((u) => u.id === this.selectedUserId)?.name!;
+  }
 }
