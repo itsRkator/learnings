@@ -22,6 +22,7 @@ export const routes: Routes = [
     },
   },
   {
+    // Catching any unwanted route which is not defined as a fallback
     path: '**',
     component: NotFound,
   },
