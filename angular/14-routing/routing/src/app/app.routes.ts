@@ -18,8 +18,8 @@ export const routes: Routes = [
       message: 'Test Data',
     },
     resolve: {
-      userName: resolveUserName
-    }
+      userName: resolveUserName,
+    },
   },
   {
     path: '**',

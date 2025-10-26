@@ -38,14 +38,14 @@ export class UserTasks implements OnInit {
 
   // Different Methods to extract dynamic route params
   // Using signals
-  // userId = input.required<string>();
-  // userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
+  userId = input.required<string>();
+  userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
 
   // Using Static Data
   // message = input.required<string>();
 
   // Using resolver functions
-  userName = input.required<string>();
+  // userName = input.required<string>();
 
   // Using Input Decorator
   // selectedUserId: string = '';
@@ -65,14 +65,12 @@ export class UserTasks implements OnInit {
     // console.log(this.message());
     //   console.log(this.activatedRoute.snapshot);
     //   console.log(this.activatedRoute.snapshot.paramMap.get('userId')); // Won't get re-executed as it is just a snapshot not subscription or signal so only once
-
     //   const subscription = this.activatedRoute.paramMap.subscribe({
     //     next: (paramMap) => {
     //       this.userName =
     //         this.usersService.users.find((u) => u.id === paramMap.get('userId'))?.name ?? '';
     //     },
     //   });
-
     //   this.destroyRef.onDestroy(() => {
     //     subscription.unsubscribe();
     //   });
