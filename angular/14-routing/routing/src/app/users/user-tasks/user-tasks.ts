@@ -28,8 +28,8 @@ export class UserTasks {
 
   // Different Methods to extract dynamic route params
   // Using signals
-  // userId = input.required<string>();
-  // userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
+  userId = input.required<string>();
+  userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
 
   // Using Input Decorator
   // selectedUserId: string = '';
@@ -41,23 +41,23 @@ export class UserTasks {
   // }
 
   // Using ActivatedRoute Observables
-  private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly destroyRef = inject(DestroyRef);
-  userName: string = '';
+  // private readonly activatedRoute = inject(ActivatedRoute);
+  // private readonly destroyRef = inject(DestroyRef);
+  // userName: string = '';
 
-  ngOnInit(): void {
-    console.log(this.activatedRoute.snapshot);
-    console.log(this.activatedRoute.snapshot.paramMap.get('userId')); // Won't get re-executed as it is just a snapshot not subscription or signal so only once
+  // ngOnInit(): void {
+  //   console.log(this.activatedRoute.snapshot);
+  //   console.log(this.activatedRoute.snapshot.paramMap.get('userId')); // Won't get re-executed as it is just a snapshot not subscription or signal so only once
 
-    const subscription = this.activatedRoute.paramMap.subscribe({
-      next: (paramMap) => {
-        this.userName =
-          this.usersService.users.find((u) => u.id === paramMap.get('userId'))?.name ?? '';
-      },
-    });
+  //   const subscription = this.activatedRoute.paramMap.subscribe({
+  //     next: (paramMap) => {
+  //       this.userName =
+  //         this.usersService.users.find((u) => u.id === paramMap.get('userId'))?.name ?? '';
+  //     },
+  //   });
 
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-    });
-  }
+  //   this.destroyRef.onDestroy(() => {
+  //     subscription.unsubscribe();
+  //   });
+  // }
 }
