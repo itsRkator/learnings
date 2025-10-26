@@ -38,8 +38,8 @@ export class UserTasks implements OnInit {
 
   // Different Methods to extract dynamic route params
   // Using signals
-  // userId = input.required<string>();
-  // userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
+  userId = input.required<string>();
+  userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
 
   // Using Static Data
   // message = input.required<string>();
@@ -57,32 +57,32 @@ export class UserTasks implements OnInit {
   // }
 
   // Using ActivatedRoute Observables
-  private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly destroyRef = inject(DestroyRef);
-  userName: string = '';
+  // private readonly activatedRoute = inject(ActivatedRoute);
+  // private readonly destroyRef = inject(DestroyRef);
+  // userName: string = '';
 
   ngOnInit(): void {
     // console.log(this.message());
     // console.log(this.activatedRoute.snapshot);
     // console.log(this.activatedRoute.snapshot.paramMap.get('userId')); // Won't get re-executed as it is just a snapshot not subscription or signal so only once
-    const subscription = this.activatedRoute.paramMap.subscribe({
-      next: (paramMap) => {
-        this.userName =
-          this.usersService.users.find((u) => u.id === paramMap.get('userId'))?.name ?? '';
-      },
-    });
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-    });
+    // const subscription = this.activatedRoute.paramMap.subscribe({
+    //   next: (paramMap) => {
+    //     this.userName =
+    //       this.usersService.users.find((u) => u.id === paramMap.get('userId'))?.name ?? '';
+    //   },
+    // });
+    // this.destroyRef.onDestroy(() => {
+    //   subscription.unsubscribe();
+    // });
     // Getting access to the Static and Resolver data of the route
-    const subscription2 = this.activatedRoute.data.subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-    });
-    this.destroyRef.onDestroy(() => {
-      subscription2.unsubscribe();
-    });
+    // const subscription2 = this.activatedRoute.data.subscribe({
+    //   next: (data) => {
+    //     console.log(data);
+    //   },
+    // });
+    // this.destroyRef.onDestroy(() => {
+    //   subscription2.unsubscribe();
+    // });
   }
 }
 
