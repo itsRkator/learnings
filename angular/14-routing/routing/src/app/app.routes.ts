@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { routes as userRoutes } from './users/user.routes';
 import { NoTask } from './tasks/no-task/no-task';
-import { UserTasks } from './users/user-tasks/user-tasks';
+import { resolveUserName, UserTasks } from './users/user-tasks/user-tasks';
 import { NotFound } from './not-found/not-found';
 
 export const routes: Routes = [
@@ -17,6 +17,9 @@ export const routes: Routes = [
     data: {
       message: 'Test Data',
     },
+    resolve: {
+      userName: resolveUserName
+    }
   },
   {
     path: '**',

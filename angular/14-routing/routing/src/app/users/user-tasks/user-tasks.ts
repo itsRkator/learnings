@@ -11,7 +11,17 @@ import {
   OnInit,
 } from '@angular/core';
 import { UsersService } from '../users.service';
-import { ActivatedRoute, RouterOutlet, RouterLinkWithHref, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterOutlet,
+  RouterLinkWithHref,
+  RouterLink,
+  ResolveFn,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  MaybeAsync,
+  RedirectCommand,
+} from '@angular/router';
 
 @Component({
   selector: 'app-user-tasks',
@@ -30,7 +40,7 @@ export class UserTasks implements OnInit {
   // Using signals
   userId = input.required<string>();
   userName = computed(() => this.usersService.users.find((u) => u.id === this.userId())?.name);
-  message = input.required<string>()
+  message = input.required<string>();
 
   // Using Input Decorator
   // selectedUserId: string = '';
@@ -48,18 +58,29 @@ export class UserTasks implements OnInit {
 
   ngOnInit(): void {
     console.log(this.message());
-  //   console.log(this.activatedRoute.snapshot);
-  //   console.log(this.activatedRoute.snapshot.paramMap.get('userId')); // Won't get re-executed as it is just a snapshot not subscription or signal so only once
+    //   console.log(this.activatedRoute.snapshot);
+    //   console.log(this.activatedRoute.snapshot.paramMap.get('userId')); // Won't get re-executed as it is just a snapshot not subscription or signal so only once
 
-  //   const subscription = this.activatedRoute.paramMap.subscribe({
-  //     next: (paramMap) => {
-  //       this.userName =
-  //         this.usersService.users.find((u) => u.id === paramMap.get('userId'))?.name ?? '';
-  //     },
-  //   });
+    //   const subscription = this.activatedRoute.paramMap.subscribe({
+    //     next: (paramMap) => {
+    //       this.userName =
+    //         this.usersService.users.find((u) => u.id === paramMap.get('userId'))?.name ?? '';
+    //     },
+    //   });
 
-  //   this.destroyRef.onDestroy(() => {
-  //     subscription.unsubscribe();
-  //   });
+    //   this.destroyRef.onDestroy(() => {
+    //     subscription.unsubscribe();
+    //   });
   }
 }
+
+export const resolveUserName: ResolveFn<string> = (
+  activatedRouteSnapshot: ActivatedRouteSnapshot,
+  routerState: RouterStateSnapshot
+): string => {
+  const usersService: UsersService = inject(UsersService);
+  const userName =
+    usersService.users.find((u) => u.id === activatedRouteSnapshot.paramMap.get('userId'))?.name ??
+    '';
+  return userName;
+};
