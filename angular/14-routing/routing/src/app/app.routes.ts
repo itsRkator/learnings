@@ -4,6 +4,7 @@ import { Tasks } from './tasks/tasks';
 import { NoTask } from './tasks/no-task/no-task';
 import { UserTasks } from './users/user-tasks/user-tasks';
 import { NewTask } from './tasks/new-task/new-task';
+import { NotFound } from './not-found/not-found';
 
 export const routes: Routes = [
   {
@@ -23,5 +24,9 @@ export const routes: Routes = [
         component: NewTask,
       },
     ],
+  },
+  {
+    path: '**',
+    component: NotFound,
   },
 ];
