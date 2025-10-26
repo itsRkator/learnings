@@ -12,9 +12,10 @@ export const routes: Routes = [
   {
     path: 'tasks',
     component: Tasks,
+    runGuardsAndResolvers: 'paramsOrQueryParamsChange',
     resolve: {
-      userTasks: resolveUserTasks
-    }
+      userTasks: resolveUserTasks,
+    },
   },
   {
     path: 'tasks/new',
