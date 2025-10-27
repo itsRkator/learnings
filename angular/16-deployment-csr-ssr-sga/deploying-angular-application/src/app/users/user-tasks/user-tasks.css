@@ -40,7 +40,7 @@ menu a {
 
 menu a:hover,
 menu a:active {
-  background-color: #a565dd
+  background-color: #a565dd;
 }
 
 @media (min-width: 768px) {

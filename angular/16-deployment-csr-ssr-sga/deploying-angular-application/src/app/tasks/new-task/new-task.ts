@@ -1,17 +1,18 @@
 import { Component, inject, input, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { TasksService } from '../tasks.service';
 import {
   ActivatedRouteSnapshot,
   CanDeactivateFn,
   Router,
+  RouterLink,
   RouterStateSnapshot,
 } from '@angular/router';
 
-import { TasksService } from '../tasks.service';
-import { FormsModule } from '@angular/forms';
-
 @Component({
   selector: 'app-new-task',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './new-task.html',
   styleUrl: './new-task.css',
 })
@@ -20,9 +21,9 @@ export class NewTask {
   enteredTitle = signal('');
   enteredSummary = signal('');
   enteredDate = signal('');
-  submitted = false;
+  submitted = signal(false);
   private tasksService = inject(TasksService);
-  private router = inject(Router);
+  private readonly router = inject(Router);
 
   onSubmit() {
     this.tasksService.addTask(
@@ -33,11 +34,10 @@ export class NewTask {
       },
       this.userId()
     );
-    this.submitted = true;
 
-    this.router.navigate(['/users', this.userId(), 'tasks'], {
-      replaceUrl: true,
-    });
+    this.submitted.set(true);
+
+    this.router.navigate(['/users', this.userId(), 'tasks'], { replaceUrl: true });
   }
 }
 
@@ -47,11 +47,13 @@ export const canLeaveEditPage: CanDeactivateFn<NewTask> = (
   currentState: RouterStateSnapshot,
   nextState: RouterStateSnapshot
 ) => {
-  if (component.submitted) {
+  if (component.submitted()) {
     return true;
   }
+
   if (component.enteredTitle() || component.enteredDate() || component.enteredSummary()) {
-    return window.confirm('Do you really want to leave? You will lose the entered data.');
+    return window.confirm('Do you really want to leave? You will loose the entered data.');
   }
+
   return true;
 };

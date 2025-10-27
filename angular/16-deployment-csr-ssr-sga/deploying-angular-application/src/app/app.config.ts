@@ -13,8 +13,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
       routes,
-      withComponentInputBinding(),
-      withRouterConfig({ paramsInheritanceStrategy: 'always' })
+      withComponentInputBinding(), // Required when the dynamic params are extracted using inputs
+      withRouterConfig({ paramsInheritanceStrategy: 'always' }) // router params of the parent won't accessible by default via input by the child route, need to be explicitly inherited via the withRouterConfig({ paramsInheritanceStrategy: 'always' }) in the provideRouter config
     ),
   ],
 };

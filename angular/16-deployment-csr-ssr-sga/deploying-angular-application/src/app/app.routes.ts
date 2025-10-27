@@ -1,35 +1,37 @@
-import { inject } from '@angular/core';
 import { CanMatchFn, RedirectCommand, Route, Router, Routes, UrlSegment } from '@angular/router';
 
 import { NoTask } from './tasks/no-task/no-task';
 import { resolveTitle, resolveUserName, UserTasks } from './users/user-tasks/user-tasks';
-import { routes as userRoutes } from './users/users.routes';
 import { NotFound } from './not-found/not-found';
+import { inject } from '@angular/core';
 
-const dummyCanMatch: CanMatchFn = (route: Route, segments: UrlSegment[]) => {
-  const router = inject(Router);
+const dummyCanMatch: CanMatchFn = (
+  route: Route,
+  segments: UrlSegment[]
+): boolean | RedirectCommand => {
   const shouldGetAccess = Math.random();
-  if (shouldGetAccess < 1) {
+  const urlTree = inject(Router);
+
+  if (shouldGetAccess < 0.5) {
     return true;
   }
-  return new RedirectCommand(router.parseUrl('/unauthorized'));
+
+  return new RedirectCommand(urlTree.parseUrl('/unauthorized'));
 };
 
 export const routes: Routes = [
   {
     path: '',
     component: NoTask,
-    // redirectTo: '/users/u1',
-    // pathMatch: 'full'
-    title: 'No task selected',
+    title: 'Home | No Task selected',
   },
   {
     path: 'users/:userId',
     component: UserTasks,
-    children: userRoutes,
-    canMatch: [dummyCanMatch],
+    loadChildren: () => import('./users/user.routes').then((module) => module.routes),
+    // canMatch: [dummyCanMatch],
     data: {
-      message: 'Hello!',
+      message: 'Test Data',
     },
     resolve: {
       userName: resolveUserName,
@@ -37,6 +39,7 @@ export const routes: Routes = [
     title: resolveTitle,
   },
   {
+    // Catching any unwanted route which is not defined as a fallback
     path: '**',
     component: NotFound,
   },

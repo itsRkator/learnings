@@ -1,6 +1,14 @@
 <section id="tasks">
   <header>
-    <h2>{{ userName() }} Tasks</h2>
+    <!-- Using Signals -->
+    <h2>{{ userName() }}</h2>
+
+    <!-- Using Decorators -->
+    <!-- <h2>{{ userName }}</h2> -->
+
+    <!-- Using Observables -->
+    <!-- <h2>{{ userName }}</h2> -->
+
     <menu>
       <a routerLink="tasks/new">Add Task</a>
     </menu>
