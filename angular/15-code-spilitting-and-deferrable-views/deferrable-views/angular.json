@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "lazy-loading-code-spliting-and-deferrable-views": {
+    "deferrable-views": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "lazy-loading-code-spliting-and-deferrable-views:build:production"
+              "buildTarget": "deferrable-views:build:production"
             },
             "development": {
-              "buildTarget": "lazy-loading-code-spliting-and-deferrable-views:build:development"
+              "buildTarget": "deferrable-views:build:development"
             }
           },
           "defaultConfiguration": "development"
