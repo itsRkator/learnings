@@ -4,15 +4,14 @@ import {
   ResolveFn,
   RouterOutlet,
   RouterStateSnapshot,
+  RouterLinkWithHref,
 } from '@angular/router';
 
 import { UsersService } from '../users.service';
 
-
-
 @Component({
   selector: 'app-user-tasks',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLinkWithHref],
   templateUrl: './user-tasks.html',
   styleUrl: './user-tasks.css',
 })
