@@ -10,4 +10,6 @@ COPY . .
 
 EXPOSE 3000
 
+# VOLUME [ "/app/feedback" ] # Unnamed Volume, get removed on container removal
+
 CMD [ "npm", "start" ]
