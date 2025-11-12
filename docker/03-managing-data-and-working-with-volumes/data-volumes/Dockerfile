@@ -1,7 +1,5 @@
 FROM node:24-alpine
 
-ARG DEFAULT_PORT=3000
-
 WORKDIR /app
 
 COPY package.json .
@@ -9,6 +7,8 @@ COPY package.json .
 RUN npm install
 
 COPY . .
+
+ARG DEFAULT_PORT=3000
 
 ENV PORT=${DEFAULT_PORT}
 
