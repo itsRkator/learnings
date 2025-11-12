@@ -12,4 +12,4 @@ EXPOSE 3000
 
 # VOLUME [ "/app/feedback" ] # Unnamed Volume, get removed on container removal
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start:dev" ]
