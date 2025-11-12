@@ -8,7 +8,9 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+ENV PORT=3000
+
+EXPOSE ${PORT}
 
 # VOLUME [ "/app/feedback" ] # Unnamed Volume, get removed on container removal
 
