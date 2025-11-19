@@ -68,7 +68,8 @@ app.get('/people', async (req, res) => {
 });
 
 mongoose
-  .connect('mongodb://host.docker.internal:27017/swfavorites')
+  // .connect('mongodb://host.docker.internal:27017/swfavorites') // Container to Host machine
+  .connect('mongodb://172.17.0.2:27017/swfavorites')
   .then(() => {
     console.log('Connected to the Database!!');
     app.listen(3000, () => {
