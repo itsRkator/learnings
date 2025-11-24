@@ -84,7 +84,7 @@ app.delete('/goals/:id', async (req, res) => {
 });
 
 mongoose
-  .connect('mongodb://localhost:27017/course-goals')
+  .connect('mongodb://host.docker.internal:27017/course-goals')
   .then(() => {
     console.log('Connected to the Database!!');
     app.listen(3000, () => {
