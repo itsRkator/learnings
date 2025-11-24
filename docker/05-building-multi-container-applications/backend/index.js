@@ -5,7 +5,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const cors = require('cors');
 
 const Goal = require('./models/goal');
 
@@ -84,9 +83,11 @@ app.delete('/goals/:id', async (req, res) => {
 });
 
 mongoose
-  .connect('mongodb://host.docker.internal:27017/course-goals')
+  .connect(
+    `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`
+  )
   .then(() => {
-    console.log('Connected to the Database!!');
+    console.log('Connected to the Database...!!');
     app.listen(3000, () => {
       console.log('App is running on 3000');
     });
