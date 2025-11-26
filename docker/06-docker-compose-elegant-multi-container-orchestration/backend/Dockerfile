@@ -1,0 +1,16 @@
+FROM node:24-alpine
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+ENV MONGODB_USERNAME=root
+ENV MONGODB_PASSWORD=rohitash
+
+CMD [ "npm", "run", "start:dev" ]
