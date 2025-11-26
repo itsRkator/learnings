@@ -1,0 +1,3 @@
+docker run -it -v /Users/rohitashk/Desktop/workspace/learnings/docker/07-utility-containers-and-executing-commands-in-conatiners:/app node-utility:latest init
+
+docker compose run npm init -y      
