@@ -1,0 +1,60 @@
+name: goals
+
+services:
+  mongodb:
+    image: 'mongo'
+    volumes:
+      - data:/data/db
+    # container_name: mongodb
+    # environment variables
+    # environment:
+    #   # Using key-value pairs
+    #   MONGO_INITDB_ROOT_USERNAME: root
+    #   MONGO_INITDB_ROOT_PASSWORD: rohitash
+    #   # Alternative: using variable and assignment
+    #   # - MONGO_INITDB_ROOT_USERNAME=root
+    #   # - MONGO_INITDB_ROOT_PASSWORD=rohitash
+
+    # Env files
+    env_file:
+      - ./env/mongo.env
+    # networks:
+    #   - goals-net
+  backend:
+    # Shorter form
+    build: ./backend
+    # Longer configuration form
+    # build:
+    #   context: ./backend
+    #   dockerfile: ./backend/Dockerfile
+    #   args:
+    #     - name=value
+    #     # Alternatively
+    #     # name: value
+    ports:
+      # HOST_MACHINE_PORT:INTERNAL_DOCKER_PORT
+      - '3000:3000'
+    volumes:
+      - logs:/app/logs # Named Volume
+      - ./backend:/app # Bind Mount
+      - /app/node_modules # Anonymous Volume
+    env_file:
+      - ./env/backend.env
+    depends_on: # Specify the list of services/containers on which this service depends on so that the docker-compose must aware that the dependencies must run and up before this
+      - mongodb
+
+  frontend:
+    build: ./frontend
+    ports:
+      - 5173:5173
+    volumes:
+      - ./frontend/src:/app/src
+    tty: true
+    stdin_open: true
+    depends_on:
+      - backend
+
+# All the named volumes must be mentioned if used so that docker-compose can use same volume/folder on the host machine
+volumes:
+  data:
+  logs:
