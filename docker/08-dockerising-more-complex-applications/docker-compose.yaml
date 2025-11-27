@@ -1,0 +1,52 @@
+name: 'php-docker'
+
+services:
+  server:
+    # image: 'nginx:stable-perl'
+    build:
+      context: ./
+      dockerfile: ./dockerfiles/nginx.dockerfile
+    ports:
+      - '8000:80'
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+      - mysql
+  php:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/php.dockerfile
+    volumes:
+      - ./src:/var/www/html:delegated
+    # ports:
+    #   - '3000:9000'
+  mysql:
+    image: 'mysql:9.5.0'
+    env_file:
+      - ./env/mysql.env
+    volumes:
+      - mysql:/etc/mysql
+  composer:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/composer.dockerfile
+    volumes:
+      - ./src:/var/www/html
+  artisan:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/php.dockerfile
+    volumes:
+      - ./src:/var/www/html
+    entrypoint: ['php', '/var/www/html/artisan']
+  npm:
+    image: 'node:24-alpine'
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+    volumes:
+      - ./src:/var/www/html
+
+volumes:
+  mysql:
