@@ -154,3 +154,5 @@ Thumbs.db
 # macOS specific files
 *.swp
 *~
+
+*.pem
