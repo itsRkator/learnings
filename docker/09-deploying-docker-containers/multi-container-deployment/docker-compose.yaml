@@ -17,5 +17,16 @@ services:
     env_file:
       - ./env/backend.env
 
+  frontend:
+    build: ./frontend
+    ports:
+      - '5173:5173'
+    env_file:
+      - ./env/frontend.env
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
 # volumes:
 #   data:
