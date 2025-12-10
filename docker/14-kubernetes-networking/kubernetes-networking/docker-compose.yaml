@@ -2,10 +2,13 @@ name: kubernetes-networking
 services:
   auth:
     build: ./auth-api
-    ports:
-      - '3000:3000'
+    # ports:
+    #   - '3000:3000'
   users:
     build: ./users-api
+    environment:
+      - AUTH_URL=http://auth:3000
+      - AUTH_SERVICE_SERVICE_HOST=http://auth:3000
     ports:
       - '8080:8080'
   tasks:
@@ -13,4 +16,5 @@ services:
     ports:
       - '8000:8000'
     environment:
-      - TASK_FOLDER=tasks
+      - TASKS_FOLDER=tasks
+      - AUTH_URL=http://auth:3000

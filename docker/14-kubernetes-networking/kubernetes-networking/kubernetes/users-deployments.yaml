@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+        - name: users
+          image: rkatorjuliusworks/kubernetes-demo-users:latest
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          env:
+            - name: AUTH_URL
+              # value: http://localhost:3000 # When the containers are in the same pod
+              # When the container is in the same Cluster but in the different node
+              # value: http://10.110.86.196:3000 # Using the explicit IP address (Not a best way)
+              value: http://auth-service.default:3000 # Using CoreDNS

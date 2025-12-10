@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-service
+spec:
+  selector:
+    app: users
+  # Types (3)
+  # ClusterIP (Default): Internal Service, only reachable from inside of the cluster.
+  # NodePort: Reachable from outside, uses Nodes IP address, not preferred for application having multi-nodes and pods moved across/between nodes
+  # LoadBalancer: Reachable from outside and creates a brand new IP address independent from node's IP address. Distributes traffic across pods
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080 # Port on which service is available to the outside world
+      targetPort: 8080 # Port inside the container on which the incoming redirected
