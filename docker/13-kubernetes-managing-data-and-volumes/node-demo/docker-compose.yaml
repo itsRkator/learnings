@@ -1,0 +1,11 @@
+name: 'node-story'
+services:
+  stories:
+    build: .
+    volumes:
+      - stories:/app/story
+    ports:
+      - '3000:3000'
+
+volumes:
+  stories:
