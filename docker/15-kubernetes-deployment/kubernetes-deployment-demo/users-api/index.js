@@ -18,12 +18,13 @@ app.use(userRoutes);
 app.use((err, req, res, next) => {
   res
     .status(err.code || 500)
-    .json({ message: error.message || 'Something went wring.' });
+    .json({ message: err.message || 'Something went wring.' });
 });
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_URI)
   .then(() => {
+    console.log('Connected to the Database!');
     app.listen(3000, () => {
       console.log('Auth app is running on port 3000');
     });

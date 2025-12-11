@@ -6,61 +6,61 @@ const { createAndThrowError } = require('../helpers/error');
 const createPasswordHash = async (password) => {
   try {
     console.log(password);
-
     const hashedPassword = await bcrypt.hash(password, 12);
     return hashedPassword;
   } catch (error) {
-    createAndThrowError('Failed to create secure password.', 5000);
+    createAndThrowError('Failed to create secure password.', 500);
   }
 };
 
 const verifyPasswordHash = async (password, hashedPassword) => {
-  let isPasswordValid;
+  let isValidPassword;
   try {
-    isPasswordValid = await bcrypt.compare(password, hashedPassword);
-    console.log(isPasswordValid, password, hashedPassword);
+    isValidPassword = await bcrypt.compare(password, hashedPassword);
+    console.log(isValidPassword, password, hashedPassword);
   } catch (error) {
-    createAndThrowError('Failed to verify password', 500);
+    createAndThrowError('Failed to verify password.', 500);
   }
-
-  if (!isPasswordValid) {
+  if (!isValidPassword) {
     createAndThrowError('Failed to verify password', 401);
   }
 };
 
-const createToken = () => {
-  return jwt.sign({}, process.env.AUTH_TOKE_SECRET, { expiresIn: '1h' });
+const createToken = (userId) => {
+  return jwt.sign({ uid: userId }, process.env.JWT_AUTH_TOKEN_SECRET, {
+    expiresIn: '1h',
+  });
 };
 
 const verifyToken = (token) => {
   try {
-    jwt.verify(token, process.env.AUTH_TOKE_SECRET);
+    const decodedToken = jwt.verify(token, process.env.JWT_AUTH_TOKEN_SECRET);
+    return decodedToken;
   } catch (error) {
-    createAndThrowError('Could not verify token', 401);
+    createAndThrowError('Could not verify token.', 401);
   }
 };
 
 const getHashedPassword = async (req, res, next) => {
-  const { password: rawPassword } = req.body;
-
+  const { password: rawPassword } = req.params;
   try {
-    const hashedPassword = createPasswordHash(rawPassword);
+    const hashedPassword = await createPasswordHash(rawPassword);
     res.status(200).json({ hashed: hashedPassword });
   } catch (error) {
-    next(error);
+    next(err);
   }
 };
 
 const getToken = async (req, res, next) => {
-  const { password, hashedPassword } = req.body;
+  const { userId, password, hashedPassword } = req.body;
 
   try {
     await verifyPasswordHash(password, hashedPassword);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 
-  const token = createToken();
+  const token = createToken(userId);
 
   res.status(200).json({ token });
 };
@@ -68,9 +68,9 @@ const getToken = async (req, res, next) => {
 const getTokenConfirmation = (req, res) => {
   const { token } = req.body;
 
-  verifyToken(token);
+  const decodedToken = verifyToken(token);
 
-  res.status(200).json({});
+  res.status(200).json({ uid: decodedToken.uid });
 };
 
 module.exports = { getHashedPassword, getToken, getTokenConfirmation };

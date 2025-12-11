@@ -27,8 +27,11 @@ spec:
         app: auth
     spec:
       containers:
-        - name: auth
-          image: rkatorjuliusworks/kubernetes-deployment-auth:latest
+        - name: auth-api
+          image: rkatorjuliusworks/kubernetes-deployment-challenge-auth:latest
+          env:
+            - name: JWT_AUTH_TOKEN_SECRET
+              value: VERY_STRONG_SECRET_KEY
           resources:
             requests:
               cpu: "100m"

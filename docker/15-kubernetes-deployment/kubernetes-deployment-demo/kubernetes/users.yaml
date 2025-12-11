@@ -1,0 +1,87 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: efs-sc
+provisioner: efs.csi.aws.com
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: users-efs-pv
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: efs-sc
+  csi:
+    driver: efs.csi.aws.com # YOUR DRIVER
+    volumeHandle: fs-59d14521 # YOUR FILESYSTEM ID
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: users-efs-pvc
+spec:
+  resources:
+    requests:
+      storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  storageClassName: efs-sc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-service
+spec:
+  selector:
+    app: users
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+        - name: users
+          image: rkatorjuliusworks/kubernetes-deployment-users:latest
+          env:
+            - name: MONGODB_CONNECTION_URI
+              value: "mongodb+srv://MONGO_DB_USER:MONGODB_USER_PASSWORD@@mongo-cluster.ostez.mongodb.net/users"
+            - name: AUTH_API_HOST
+              value: auth-service.default:3000
+          volumeMounts:
+            - name: efs-vol
+              mountPath: /app/users
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+      volumes:
+        - name: efs-vol
+          persistentVolumeClaim:
+            claimName: users-efs-pvc

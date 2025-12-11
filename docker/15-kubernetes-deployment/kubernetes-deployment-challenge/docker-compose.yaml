@@ -1,0 +1,22 @@
+name: kubernetes-deployment-challenge
+services:
+  auth:
+    build: ./auth-api
+    ports:
+      - 8000:3000
+    environment:
+      - JWT_AUTH_TOKEN_SECRET=VERY_STRONG_SECRET_KEY
+  users:
+    build: ./users-api
+    ports:
+      - 8080:3000
+    environment:
+      - MONGODB_CONNECTION_URI=mongodb+srv://MONGO_DB_USER:MONGODB_USER_PASSWORD@mongo-cluster.ostez.mongodb.net/users
+      - AUTH_API_HOST=auth:3000
+  tasks:
+    build: ./tasks-api
+    ports:
+      - 3000:3000
+    environment:
+      - MONGODB_CONNECTION_URI=mongodb+srv://MONGO_DB_USER:MONGODB_USER_PASSWORD@@mongo-cluster.ostez.mongodb.net/users
+      - AUTH_API_HOST=auth:3000
