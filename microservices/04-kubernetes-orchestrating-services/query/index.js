@@ -43,7 +43,7 @@ app.post('/events', (req, res) => {
 app.listen(4002, () => {
   console.log('Listening on port 4002');
   axios
-    .get('http://event-bus:4005/events')
+    .get('http://events-bus-service.default:4005/events')
     .then((res) => res.data)
     .then((eventData) => {
       for (let event of eventData) {

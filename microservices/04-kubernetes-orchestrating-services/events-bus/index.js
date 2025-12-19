@@ -11,7 +11,7 @@ const events = [];
 
 const broadcastEvent = (event) => {
   axios
-    .post('http://posts:4000/events', event)
+    .post('http://posts-service.default:4000/events', event)
     .then((response) => {
       console.log(`[PostsService] - Event: ${JSON.stringify(response.data)}`);
     })
@@ -22,7 +22,7 @@ const broadcastEvent = (event) => {
     });
 
   axios
-    .post('http://comments:4001/events', event)
+    .post('http://comments-service.default:4001/events', event)
     .then((response) => {
       console.log(
         `[CommentsService] - Event: ${JSON.stringify(response.data)}`
@@ -35,7 +35,7 @@ const broadcastEvent = (event) => {
     });
 
   axios
-    .post('http://query:4002/events', event)
+    .post('http://query-service.default:4002/events', event)
     .then((response) => {
       console.log(`[QueryService] - Event: ${JSON.stringify(response.data)}`);
     })
@@ -46,7 +46,7 @@ const broadcastEvent = (event) => {
     });
 
   axios
-    .post('http://moderation:4003/events', event)
+    .post('http://moderation-service.default:4003/events', event)
     .then((response) => {
       console.log(
         `[ModerationService] - Event: ${JSON.stringify(response.data)}`

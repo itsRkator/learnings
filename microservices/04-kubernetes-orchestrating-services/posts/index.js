@@ -30,7 +30,7 @@ app.post('/posts', async (req, res) => {
     title,
   };
 
-  await axios.post('http://event-bus:4005/events', {
+  await axios.post('http://events-bus-service.default:4005/events', {
     type: 'PostCreated',
     data: posts[id],
   });
@@ -45,5 +45,7 @@ app.post('/events', (req, res) => {
 });
 
 app.listen(4000, () => {
+  console.log('Node v24');
+  console.log('Docker v29');
   console.log('Listening on port 4000');
 });

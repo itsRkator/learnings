@@ -11,10 +11,12 @@ app.post('/events', (req, res) => {
   console.log('Received Event', type);
 
   if (type === 'CommentCreated') {
-    const status = data.content.toLowerCase().includes('orange') ? 'rejected' : 'approved';
+    const status = data.content.toLowerCase().includes('orange')
+      ? 'rejected'
+      : 'approved';
 
     axios
-      .post('http://event-bus:4005/events', {
+      .post('http://events-bus-service.default:4005/events', {
         type: 'CommentModerated',
         data: { ...data, status },
       })

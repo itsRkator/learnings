@@ -32,7 +32,7 @@ app.post('/posts/:id/comments', (req, res) => {
 
   commentsByPostId[postId] = comments;
 
-  axios.post('http://event-bus:4005/events', {
+  axios.post('http://events-bus-service.default:4005/events', {
     type: 'CommentCreated',
     data: { ...comment, postId },
   });
@@ -51,7 +51,7 @@ app.post('/events', (req, res) => {
     existingComment.status = comment.status;
 
     axios
-      .post('http://event-bus:4005/events', {
+      .post('http://events-bus-service.default:4005/events', {
         type: 'CommentUpdated',
         data: { ...existingComment, postId: data.postId },
       })

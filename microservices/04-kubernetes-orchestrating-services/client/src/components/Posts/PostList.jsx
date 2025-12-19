@@ -9,7 +9,7 @@ const PostList = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const apiResponse = await axios.get('http://localhost:4002/posts');
+        const apiResponse = await axios.get('/query-api/posts');
 
         console.log(apiResponse.data);
         setPosts(apiResponse.data);
