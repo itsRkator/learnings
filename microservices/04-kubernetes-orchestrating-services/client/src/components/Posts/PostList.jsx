@@ -9,7 +9,11 @@ const PostList = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        // Using NGINX reverse proxy
         const apiResponse = await axios.get('/query-api/posts');
+
+        // Using NGINX ingress service
+        // const apiResponse = await axios.get('http://localhost/query-api/posts');
 
         console.log(apiResponse.data);
         setPosts(apiResponse.data);

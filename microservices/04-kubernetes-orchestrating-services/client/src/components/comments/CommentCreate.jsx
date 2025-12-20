@@ -7,9 +7,16 @@ const CommentCreate = ({ postId }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
+    // Using NGINX reverse proxy
     await axios.post(`/comments-api/posts/${postId}/comments`, {
       content,
     });
+
+    // Using NGINX ingress service
+    // await axios.post(`http://localhost/comments-api/posts/${postId}/comments`, {
+    //   content,
+    // });
+
     setContent('');
   };
   return (

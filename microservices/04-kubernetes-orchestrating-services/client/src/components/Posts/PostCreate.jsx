@@ -6,7 +6,12 @@ const PostCreate = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+
+    // Using NGINX reverse proxy
     await axios.post('/posts-api/posts', { title });
+
+    // Using NGINX ingress service
+    // await axios.post('http://localhost/posts-api/posts', { title });
 
     setTitle('');
   };
