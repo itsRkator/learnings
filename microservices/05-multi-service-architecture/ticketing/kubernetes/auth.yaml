@@ -1,35 +1,35 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: events-bus-service
+  name: auth-service
 spec:
   selector:
-    app: events-bus
-  type: ClusterIP
+    app: auth
+  type: LoadBalancer
   ports:
-    - name: events-bus
+    - name: auth
       protocol: TCP
-      port: 4005
-      targetPort: 4005
+      port: 3000
+      targetPort: 3000
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: events-bus-deployment
+  name: auth-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: events-bus
+      app: auth
   template:
     metadata:
       labels:
-        app: events-bus
+        app: auth
     spec:
       containers:
-        - name: events-bus
-          image: rkatorjuliusworks/blog-microservices-events-bus
+        - name: auth
+          image: rkatorjuliusworks/ticketing-auth
           imagePullPolicy: Always
           resources:
             requests:
